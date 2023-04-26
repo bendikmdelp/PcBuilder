@@ -12,6 +12,9 @@ export default {
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
+			options: {
+				source: 'name'
+			}
 		},
 		{
 			title: 'Description',
