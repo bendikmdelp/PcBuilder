@@ -19,7 +19,7 @@ export default {
 		{
 			title: 'Description',
 			name: 'description',
-			type: 'string',
+			type: 'text',
 		},
 		{
 			title: 'Logo',

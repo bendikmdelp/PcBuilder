@@ -20,7 +20,7 @@ export default {
 			title: 'Images',
 			name: 'images',
 			type: 'array',
-			of: { type: 'image' }
+			of: [{ type: 'image' }]
 		},
 		{
 			title: 'Manufacturer',
@@ -60,8 +60,8 @@ export default {
 			type: 'string',
 		},
 		{
-			title: 'Socket',
-			name: 'socket',
+			title: 'Cooler Socket',
+			name: 'coolerSocket',
 			type: 'string',
 		},
 		{
