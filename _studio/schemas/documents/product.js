@@ -42,12 +42,12 @@ export default {
 		{
 			title: 'Cores',
 			name: 'cores',
-			type: 'string',
+			type: 'number',
 		},
 		{
 			title: 'Threads',
 			name: 'threads',
-			type: 'string',
+			type: 'number',
 		},
 		{
 			title: 'Coreclock',
@@ -62,7 +62,8 @@ export default {
 		{
 			title: 'Cooler Socket',
 			name: 'coolerSocket',
-			type: 'string',
+			type: 'array',
+			of: [{ type: 'string'}]
 		},
 		{
 			title: 'Watercooled',
