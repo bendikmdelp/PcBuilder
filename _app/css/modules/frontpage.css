@@ -1,0 +1,76 @@
+.frontpage__main-container {
+	background-color: #FFFFFF;
+	width: 100%;
+	margin: 30px 0 30px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 30px;
+}
+
+.main-container__popular-products {
+	height: 100%;
+	gap: 20px;
+	padding: 1vW;
+	display: flex;
+	flex-direction: column;
+}
+
+.popular-products__list-item{
+	margin-bottom: 1vW;
+}
+
+.popular-products__title, .completed-builds__title{
+	text-decoration: underline;
+}
+
+.main-container__divider {
+	width: 2px;
+	height: 50vH;
+	background-color: black;
+}
+
+.main-container__completed-builds {
+	height: 100vH;
+	width: 100%;	
+	display: grid;
+	justify-content: space-around;
+	grid-gap: 1vW;
+
+}
+
+.completed-builds__title {
+	grid-column: 1/ span 4;
+	align-self: center;
+	justify-self: center;
+}
+
+.completed-builds__build-1 {
+	grid-row: 2/ span 2;
+	grid-column: 1/ span 2;
+	background-color: cyan;
+	width: 100%;
+	height: 100%;
+}
+.completed-builds__build-2 {
+	grid-row: 2/ span 2;
+	grid-column: 3/ span 2;
+	background-color: cyan;
+	width: 100%;
+	height: 100%;
+}
+.completed-builds__build-3 {
+	grid-row: 4/ span 2;
+	grid-column: 1/ span 2;
+	background-color: cyan;
+	width: 100%;
+	height: 100%;
+}
+.completed-builds__build-4 {
+	grid-row: 4/ span 2;
+	grid-column: 3/ span 2;
+	background-color: cyan;
+	width: 100%;
+	height: 100%;
+}
+
