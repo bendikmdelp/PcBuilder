@@ -16,6 +16,12 @@
 	position: relative;
 }
 
+.button-container__builder, 
+.button-container__completed-builds, 
+.button-container__browse-products {
+	padding: 1vW;
+}
+
 .divider {
 	width: 100%;
 	height: 2px;
