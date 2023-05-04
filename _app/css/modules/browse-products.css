@@ -1,8 +1,7 @@
 .main-container__category-select {
 	display: grid;
 	justify-items: center;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows:  1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
 	height: 40vH;
 }
