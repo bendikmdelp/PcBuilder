@@ -25,7 +25,7 @@ export async function getProducts() {
 			VRAM,
 			coreClock,
 			GPUMemoryType,
-			efficencyRating,
+			efficiencyRating,
 			wattage,
 			modular,
 			caseType,
