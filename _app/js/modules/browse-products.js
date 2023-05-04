@@ -1,6 +1,6 @@
 import {getProducts} from '../util/get-from-db.js'
 
-const products = await getProducts();
+const productList = await getProducts();
 
 export default function browseProducts() {
 	const categoryButtons = document.querySelectorAll('.category-select__component');
@@ -20,7 +20,7 @@ export default function browseProducts() {
 
 	function sortProducts(event) {
 		const clickedCategory = event.currentTarget.dataset.category
-		const sortedProduct = products.filter(product => product.category.toLowerCase() === clickedCategory);
+		const sortedProduct = productList.filter(product => product.category.toLowerCase() === clickedCategory);
 		return sortedProduct;
 	}
 
@@ -95,10 +95,54 @@ export default function browseProducts() {
 		return getHighest/100
 	}
 
+	function renderProductFilter(products) {
+		const reducedArrayObjects = getClickedCategoryObjectKeys(products);
+		createProductFilterDOM(reducedArrayObjects);
+	}
+
+	function getClickedCategoryObjectKeys(products) {
+		let newArray = []
+
+
+		for(const product of products) {
+			let newObject = {};
+			for(const [key, value] of Object.entries(product)){
+				if(value){
+					if(key !== 'images' &&
+					key !== 'manufacturer' &&
+					key !== 'price' &&
+					key !== 'category' &&
+					key !== 'name'){
+						Object.defineProperty(newObject, key, {
+							value: value,
+							writable: true
+						})
+					};
+					
+				};
+			};
+			newArray.push(newObject)
+		}
+		return newArray;
+	}
+
+	function createProductFilterDOM(array) {
+		const filterArray = array;
+		const objectKeys = Object.getOwnPropertyNames(filterArray[0]);
+
+		// const filterContainer = document.createElement('div');
+
+		// for(const key in objectKeys) {
+		// 	const inputKey = document.createElement('input');
+
+
+		// }
+	}
+
 	function renderHTMLDOM(products) {
 		const productArray = products;
 		renderPriceRange(productArray);
-		// renderProductFilter(productArray);
+		renderProductFilter(productArray);
 		// renderProductList(productArray);
 	}
 }
