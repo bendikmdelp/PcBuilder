@@ -3,11 +3,11 @@
 	justify-items: center;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
-	height: 40vH;
+	height: 30vH;
 }
 
 .category-select__component{
-	height: 16vH;
+	height: 20vH;
 	font-size: 2vH;
 	width: fit-content;
 	justify-items: center;
