@@ -2,7 +2,6 @@ import {sanity} from "../sanity.js"
 
 export async function getProducts() {
 	const query = `*[_type == "product"] {
-		*[_type == "product"] {
 			name,
 			"images": images[].asset -> url,
 			"manufacturer": manufacturer -> name,
@@ -32,8 +31,7 @@ export async function getProducts() {
 			caseType,
 			sidePanel,
 			colour
-		 }
-	 }`
+		 }`
 
 	const products = await sanity.fetch(query)
 
