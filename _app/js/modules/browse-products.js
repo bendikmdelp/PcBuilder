@@ -100,6 +100,18 @@ export default function browseProducts() {
 		createProductFilterDOM(reducedArrayObjects);
 	}
 
+	function renderProductList(array) {
+		const productList = getClickedCategoryObjectKeys(array);
+		const productKeys = getObjectKeys(productList[0]);
+
+		const sorterDiv = createSorterDivDOM(productKeys);
+
+		const productListDom = createProductListDOM(productList);
+
+		productListContainer.innerHTML = ''
+		productListContainer.append(sorterDiv, productListDom);
+	}
+
 	function getClickedCategoryObjectKeys(products) {
 		let newArray = []
 
@@ -128,27 +140,99 @@ export default function browseProducts() {
 
 	function createProductFilterDOM(array) {
 		const filterArray = array;
-		const objectKeys = Object.getOwnPropertyNames(filterArray[0]);
+		const objectKeys = getObjectKeys(filterArray[0])
 		let arrayOfProductKeys = objectKeys.reduce((acc,curr) => (acc[curr] = [], acc), {})
-
 		for(const product of filterArray) {
 			for(const objectKey of objectKeys){
 				arrayOfProductKeys[objectKey].push( product[objectKey])
 			}
 		}
-		// const filterContainer = document.createElement('div');
 
-		// for(const key in objectKeys) {
-		// 	const inputKey = document.createElement('input');
+		const filterContainer = document.createElement('div');
+		let current = null
 
+		for(const key of objectKeys) {
+			const filterCategory = document.createElement('h5');
 
-		// }
+			filterCategory.className = 'filters__category-name'
+			filterCategory.innerText = key;
+			filterContainer.append(filterCategory)
+			for(const arrayItem of arrayOfProductKeys[key]) {
+
+				if(current !== arrayItem){
+					const inputKey = document.createElement('input');
+					const inputLabel = document.createElement('label');
+
+					inputKey.className = 'filters__input';
+					inputKey.id = arrayItem
+					inputLabel.className = 'filters__label';
+
+					inputKey.type = 'checkbox';
+					inputLabel.for = arrayItem;
+
+					inputLabel.innerText = arrayItem;
+
+					filterContainer.append(inputKey, inputLabel);
+				}
+				current = arrayItem
+			}
+			current = null
+		}
+		productFilter.append(filterContainer);
+		
 	}
+
+	function getObjectKeys(object) {
+		return Object.getOwnPropertyNames(object);
+	}
+
+	function createSorterDivDOM(productKeys) {
+		const sorterDiv = document.createElement('div');
+
+		const nameButton = document.createElement('button');
+		const priceButton = document.createElement('button');
+
+		sorterDiv.className = 'product-list__sorter-container';
+		nameButton.className = 'sorter-container__name';
+		priceButton.className = 'sorter-container__price';
+
+		nameButton.innerText = 'Name';
+		priceButton.innerText = 'price';
+
+		sorterDiv.append(nameButton);
+		for(const key of productKeys) {
+			const sortKeyButton = document.createElement('button');
+
+			sortKeyButton.className = `sorter-container__${key}`;
+
+			sortKeyButton.innerText = key;
+
+			sorterDiv.append(sortKeyButton);
+		}
+		sorterDiv.append(priceButton);
+
+		return sorterDiv
+	}
+
+	function createProductListDOM(productArray) {
+		const productList = productArray;
+
+		const productContainer = document.createElement('div');
+		productContainer.className = 'product-list__product-item'
+
+		for(const product of productList) {
+			//console.log(product)
+			for(const productValue in product) {
+				console.log('hei')
+			}
+		}
+	}
+	
 
 	function renderHTMLDOM(products) {
 		const productArray = products;
 		renderPriceRange(productArray);
 		renderProductFilter(productArray);
-		// renderProductList(productArray);
+		renderProductList(productArray);
 	}
 }
