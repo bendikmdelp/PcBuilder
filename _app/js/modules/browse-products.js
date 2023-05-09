@@ -129,7 +129,13 @@ export default function browseProducts() {
 	function createProductFilterDOM(array) {
 		const filterArray = array;
 		const objectKeys = Object.getOwnPropertyNames(filterArray[0]);
+		let arrayOfProductKeys = objectKeys.reduce((acc,curr) => (acc[curr] = [], acc), {})
 
+		for(const product of filterArray) {
+			for(const objectKey of objectKeys){
+				arrayOfProductKeys[objectKey].push( product[objectKey])
+			}
+		}
 		// const filterContainer = document.createElement('div');
 
 		// for(const key in objectKeys) {
