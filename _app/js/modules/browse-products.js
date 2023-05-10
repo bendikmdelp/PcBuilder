@@ -1,4 +1,6 @@
 import {getProducts} from '../util/get-from-db.js'
+import { renderProductList } from '../util/product-list.js';
+import { getHighestPrice, getLowestPrice, getClickedCategoryObjectKeys, getObjectKeys } from '../util/sort-filter.js';
 
 const productList = await getProducts();
 
@@ -27,6 +29,11 @@ export default function browseProducts() {
 	function renderPriceRange(products) {
 		const priceRangeDom = createPriceRangeDOM(products);
 		productPriceText.after(priceRangeDom);
+	}
+
+	function renderProductFilter(products) {
+		const reducedArrayObjects = getClickedCategoryObjectKeys(products);
+		createProductFilterDOM(reducedArrayObjects);
 	}
 
 	function createPriceRangeDOM(products) {
@@ -85,59 +92,6 @@ export default function browseProducts() {
 		return priceRangeContainer;
 	}
 
-	function getLowestPrice(products) {
-		const getLowest = Math.min(...products.map(item => item.price));
-		return getLowest/100
-	}
-
-	function getHighestPrice(products) {
-		const getHighest = Math.max(...products.map(item => item.price));
-		return getHighest/100
-	}
-
-	function renderProductFilter(products) {
-		const reducedArrayObjects = getClickedCategoryObjectKeys(products);
-		createProductFilterDOM(reducedArrayObjects);
-	}
-
-	function renderProductList(array) {
-		const productList = getClickedCategoryObjectKeys(array);
-		const productKeys = getObjectKeys(productList[0]);
-
-		const sorterDiv = createSorterDivDOM(productKeys);
-
-		const productListDom = createProductListDOM(productList);
-
-		productListContainer.innerHTML = ''
-		productListContainer.append(sorterDiv, productListDom);
-	}
-
-	function getClickedCategoryObjectKeys(products) {
-		let newArray = []
-
-
-		for(const product of products) {
-			let newObject = {};
-			for(const [key, value] of Object.entries(product)){
-				if(value){
-					if(key !== 'images' &&
-					key !== 'manufacturer' &&
-					key !== 'price' &&
-					key !== 'category' &&
-					key !== 'name'){
-						Object.defineProperty(newObject, key, {
-							value: value,
-							writable: true
-						})
-					};
-					
-				};
-			};
-			newArray.push(newObject)
-		}
-		return newArray;
-	}
-
 	function createProductFilterDOM(array) {
 		const filterArray = array;
 		const objectKeys = getObjectKeys(filterArray[0])
@@ -182,57 +136,11 @@ export default function browseProducts() {
 		
 	}
 
-	function getObjectKeys(object) {
-		return Object.getOwnPropertyNames(object);
-	}
-
-	function createSorterDivDOM(productKeys) {
-		const sorterDiv = document.createElement('div');
-
-		const nameButton = document.createElement('button');
-		const priceButton = document.createElement('button');
-
-		sorterDiv.className = 'product-list__sorter-container';
-		nameButton.className = 'sorter-container__name';
-		priceButton.className = 'sorter-container__price';
-
-		nameButton.innerText = 'Name';
-		priceButton.innerText = 'price';
-
-		sorterDiv.append(nameButton);
-		for(const key of productKeys) {
-			const sortKeyButton = document.createElement('button');
-
-			sortKeyButton.className = `sorter-container__${key}`;
-
-			sortKeyButton.innerText = key;
-
-			sorterDiv.append(sortKeyButton);
-		}
-		sorterDiv.append(priceButton);
-
-		return sorterDiv
-	}
-
-	function createProductListDOM(productArray) {
-		const productList = productArray;
-
-		const productContainer = document.createElement('div');
-		productContainer.className = 'product-list__product-item'
-
-		for(const product of productList) {
-			//console.log(product)
-			for(const productValue in product) {
-				console.log('hei')
-			}
-		}
-	}
-	
 
 	function renderHTMLDOM(products) {
 		const productArray = products;
 		renderPriceRange(productArray);
 		renderProductFilter(productArray);
-		renderProductList(productArray);
+		renderProductList(productArray, productListContainer);
 	}
 }

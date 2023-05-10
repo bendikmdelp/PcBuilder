@@ -1,5 +1,5 @@
 export function getObjectKeys(object) {
-	return Object.getOwnPropertyNames(object);
+	return Object.keys(object);
 }
 
 export function getClickedCategoryObjectKeys(products) {
@@ -16,8 +16,9 @@ export function getClickedCategoryObjectKeys(products) {
 				key !== 'category' &&
 				key !== 'name'){
 					Object.defineProperty(newObject, key, {
+						enumerable: true,
 						value: value,
-						writable: true
+
 					})
 				};
 				
