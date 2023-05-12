@@ -12,21 +12,23 @@ export function renderProductList(array, productListContainer) {
 
 function createProductListDOM(productArray, baseArray, productKeys) {
 	const productList = productArray;
-	const productContainer = document.createElement('ul');
+	const productContainer = document.createElement('tbody');
 	productContainer.className = 'product-list__product-list-container'
 
 
 	for(let index = 0; index < productList.length; index++) {
 		const productObject = productList[index]
-		const productListItem = document.createElement('li');
-		const productCard = document.createElement('a');
-		const productName = document.createElement('p');
+		const productListItem = document.createElement('tr');
+		// const productCard = document.createElement('td');
+		const productName = document.createElement('td');
+		const productImageContainer = document.createElement('td')
 		const productImage = document.createElement('img');
-		const productPrice = document.createElement('p');
+		const productPrice = document.createElement('td');
+		const addButtonContainer = document.createElement('td');
 		const productAddButton = document.createElement('button');
 
 		productListItem.className = 'product-list-container__product-item';
-		productCard.className = 'product-list-container__product-card';
+		// productCard.className = 'product-list-container__product-card';
 		productName.className = 'product-card__product-name';
 		productPrice.className = 'product-card__product-price';
 		productImage.className = 'product-card__product-image';
@@ -37,20 +39,25 @@ function createProductListDOM(productArray, baseArray, productKeys) {
 		productPrice.innerText = baseArray[index].price/100;
 		productAddButton.innerText = 'ADD'
 
-		productCard.append(productImage, productName);
-		createDOMElementFromObject(productObject, productCard, productKeys[index]);
-		productCard.append(productPrice, productAddButton);
-		productListItem.append(productCard);
+		productImageContainer.append(productImage);
+		addButtonContainer.append(productAddButton);
+		productListItem.append(productImageContainer, productName);
+		createDOMElementFromObject(productObject, productListItem, productKeys[index]);
+		productListItem.append(productPrice, addButtonContainer);
+		// productListItem.append(productCard);
 		productContainer.append(productListItem);
 	}
 	return productContainer;
 }
 
 function createSorterDivDOM(productKeys) {
-	const sorterDiv = document.createElement('div');
+	const sorterDiv = document.createElement('thead');
+	const tableTr = document.createElement('tr')
 
-	const nameButton = document.createElement('button');
-	const priceButton = document.createElement('button');
+	const nameButton = document.createElement('th');
+	const priceButton = document.createElement('th');
+	const emptyStart = document.createElement('th');
+	const emptyEnd = document.createElement('th');
 
 	sorterDiv.className = 'product-list__sorter-container';
 	nameButton.className = 'sorter-container__name';
@@ -59,17 +66,18 @@ function createSorterDivDOM(productKeys) {
 	nameButton.innerText = 'Name';
 	priceButton.innerText = 'price';
 
-	sorterDiv.append(nameButton);
+	tableTr.append(emptyStart, nameButton);
 	for(const key of productKeys) {
-		const sortKeyButton = document.createElement('button');
+		const sortKeyButton = document.createElement('th');
 
 		sortKeyButton.className = `sorter-container__${key}`;
 
 		sortKeyButton.innerText = key;
 
-		sorterDiv.append(sortKeyButton);
+		tableTr.append(sortKeyButton);
 	}
-	sorterDiv.append(priceButton);
+	tableTr.append(priceButton, emptyEnd);
+	sorterDiv.append(tableTr);
 
 	return sorterDiv
 }
@@ -77,7 +85,7 @@ function createSorterDivDOM(productKeys) {
 function createDOMElementFromObject(object, element, productKey) {
 
 	for(const property of Object.entries(object)) {
-		const productProperty = document.createElement('p');
+		const productProperty = document.createElement('td');
 
 		productProperty.className = `product-card__product-${productKey}`
 
