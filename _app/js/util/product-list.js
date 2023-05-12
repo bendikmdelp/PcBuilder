@@ -11,6 +11,7 @@ export function renderProductList(array, productListContainer) {
 }
 
 function createProductListDOM(productArray, baseArray, productKeys) {
+
 	const productList = productArray;
 	const productContainer = document.createElement('tbody');
 	productContainer.className = 'product-list__product-list-container'
@@ -42,7 +43,7 @@ function createProductListDOM(productArray, baseArray, productKeys) {
 		productImageContainer.append(productImage);
 		addButtonContainer.append(productAddButton);
 		productListItem.append(productImageContainer, productName);
-		createDOMElementFromObject(productObject, productListItem, productKeys[index]);
+		createDOMElementFromObject(productObject, productListItem, productKeys);
 		productListItem.append(productPrice, addButtonContainer);
 		// productListItem.append(productCard);
 		productContainer.append(productListItem);
@@ -66,6 +67,7 @@ function createSorterDivDOM(productKeys) {
 	nameButton.innerText = 'Name';
 	priceButton.innerText = 'price';
 
+
 	tableTr.append(emptyStart, nameButton);
 	for(const key of productKeys) {
 		const sortKeyButton = document.createElement('th');
@@ -82,14 +84,14 @@ function createSorterDivDOM(productKeys) {
 	return sorterDiv
 }
 
-function createDOMElementFromObject(object, element, productKey) {
+function createDOMElementFromObject(object, element, productKeys) {
 
-	for(const property of Object.entries(object)) {
+	for(const property of productKeys) {
 		const productProperty = document.createElement('td');
 
-		productProperty.className = `product-card__product-${productKey}`
+		productProperty.className = `product-card__product-${property}`
 
-		productProperty.innerText = property[1]
+		productProperty.innerText = object[property]
 
 		element.append(productProperty);
 	}
