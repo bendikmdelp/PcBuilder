@@ -14,49 +14,58 @@
 			<header class="header">
 				<img class="header__logo" src="/_app/assets/logo-header.svg" alt="">
 				<div class="header__button-container">
-					<button class="button-container__builder" data-site="builder">Builder</button>
-					<button class="button-container__completed-builds" data-site="completed">Completed Builds</button>
-					<button class="button-container__browse-products" data-site="browse">Browse Products</button>
+					<button class="button-container__builder">Builder</button>
+					<button class="button-container__completed-builds">Completed Builds</button>
+					<button class="button-container__browse-products">Browse Products</button>
 				</div>
 	
 			</header>
 
 			<div class="divider"></div>
 	
-			<main class="frontpage__main-container">
-				<div class="main-container__popular-products">
-					<p class="popular-products__title">Most Popular products</p>
-					<ul class="popular-products__list">
-						<li class="popular-products__list-item">1. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">2. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">3. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">4. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">5. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">6. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">7. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">8. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">9. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">10. AMD Ryzen 5900x</li>
-
-					</ul>
+			<main class="builder__main-container">
+				<div class="main-container__product-descriptions main-container__selection">
+					<p>Component</p>
+					<p>Selection</p>
+					<p>Price</p>
+					<p>Vendor</p>
 				</div>
 
-				<div class="main-container__divider"></div>
+				<div class="main-container__cpu-selection main-container__selection">
+					<p>CPU</p>
+					<p>Ryzen 5900x</p>
+					<p>5900Kr</p>
+					<p>Komplett.no</p>
+					<button class="main-container__remove-selection-button">X</button>
+				</div>
+				<div class="main-container__motherboard-selection main-container__selection">
+					<p>Motherboard</p>
+					<button class="main-container__add-selection-button">add Component</button>
 
-				<div class="main-container__completed-builds">
-					<p class="completed-builds__title">Completed builds</p>
-					<div class="completed-builds__build-1">
-						Completed build 1
-					</div>
-					<div class="completed-builds__build-2">
-						Completed build 1
-					</div>
-					<div class="completed-builds__build-3">
-						Completed build 1
-					</div>
-					<div class="completed-builds__build-4">
-						Completed build 1
-					</div>
+				</div>
+				<div class="main-container__ram-selection main-container__selection">
+					<p>RAM</p>
+					<button class="main-container__add-selection-button">add Component</button>
+				</div>
+				<div class="main-container__storage-selection main-container__selection">
+					<p>Storage</p>
+					<button class="main-container__add-selection-button">add Component</button>
+				</div>
+				<div class="main-container__gpu-selection main-container__selection">
+					<p>GPU</p>
+					<button class="main-container__add-selection-button">add Component</button>
+				</div>
+				<div class="main-container__power-supply-selection main-container__selection">
+					<p>Power Supply</p>
+					<button class="main-container__add-selection-button">add Component</button>
+				</div>
+				<div class="main-container__cooler-selection main-container__selection">
+					<p>CPU cooler</p>
+					<button class="main-container__add-selection-button">add Component</button>
+				</div>
+				<div class="main-container__case-selection main-container__selection">
+					<p>Case</p>
+					<button class="main-container__add-selection-button">add Component</button>
 				</div>
 			</main>
 	
@@ -64,9 +73,9 @@
 				<img class="footer__logo" src="/_app/assets/logo-footer.svg" alt="">
 				<div class="footer__categories-container">
 					<p class="categories-container__title">Categories</p>
-					<button class="categories-container__builder">Builder</button>
-					<button class="categories-container__completed-builds">Completed Builds</button>
-					<button class="categories-container__browse-products">Browse Products</button>
+					<button class="button-container__builder" data-site="builder">Builder</button>
+					<button class="button-container__completed-builds" data-site="completed">Completed Builds</button>
+					<button class="button-container__browse-products" data-site="browse">Browse Products</button>
 				</div>
 				<div class="footer__links-container">
 					<p class="links-container__title">Links</p>

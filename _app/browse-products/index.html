@@ -21,43 +21,58 @@
 	
 			</header>
 
-			<div class="divider"></div>
+			<div class="divider" aria-hidden="true"></div>
 	
-			<main class="frontpage__main-container">
-				<div class="main-container__popular-products">
-					<p class="popular-products__title">Most Popular products</p>
-					<ul class="popular-products__list">
-						<li class="popular-products__list-item">1. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">2. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">3. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">4. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">5. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">6. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">7. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">8. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">9. AMD Ryzen 5900x</li>
-						<li class="popular-products__list-item">10. AMD Ryzen 5900x</li>
+			<main class="browse-products__main-container">
+				<section class="main-container__category-select">
+					<button class="category-select__motherboard category-select__component" data-category="motherboard">
+						<h2 class="category-select__motherboard-title">Motherboard</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-motherboard.png" alt="">
+					</button>
+					<button class="category-select__cpu category-select__component" data-category="cpu">
+						<h2 class="category-select__cpu-title">CPU</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-cpu.png" alt="">
+					</button>
+					<button class="category-select__cooler category-select__component" data-category="cooler">
+						<h2 class="category-select__cooler-title">CPU Cooler</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-cpucooler.png" alt="">
+					</button>
+					<button class="category-select__motherboard category-select__component" data-category="memory">
+						<h2 class="category-select__motherboard-title">RAM</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-memory.png" alt="">
+					</button>
+					<button class="category-select__motherboard category-select__component" data-category="storage">
+						<h2 class="category-select__motherboard-title">Storage</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-ssd.png" alt="">
+					</button>
+					<button class="category-select__motherboard category-select__component" data-category="gpu">
+						<h2 class="category-select__motherboard-title">GPU</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-videocard.png" alt="">
+					</button>
+					<button class="category-select__motherboard category-select__component" data-category="power supply">
+						<h2 class="category-select__motherboard-title">Power Supply</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-powersupply.png" alt="">
+					</button>
+					<button class="category-select__motherboard category-select__component" data-category="case">
+						<h2 class="category-select__motherboard-title">Case</h2>
+						<img class="category-select__component-image" src="/_app/assets/nav-case.png" alt="">
+					</button>
+				</section>
 
-					</ul>
-				</div>
+				<section class="main-container__product-container">
+					<aside class="product-container__product-sorter">
+						<h2 class="product-sorter__price">Price</h2>
+						
 
-				<div class="main-container__divider"></div>
+						<h2>Filters</h2>
+						<div class="product-sorter__filters"></div>
+					</aside>
+	
+					<table class="product-container__product-list">
 
-				<div class="main-container__completed-builds">
-					<p class="completed-builds__title">Completed builds</p>
-					<div class="completed-builds__build-1">
-						Completed build 1
-					</div>
-					<div class="completed-builds__build-2">
-						Completed build 1
-					</div>
-					<div class="completed-builds__build-3">
-						Completed build 1
-					</div>
-					<div class="completed-builds__build-4">
-						Completed build 1
-					</div>
-				</div>
+					</table>
+				</section>
+
 			</main>
 	
 			<footer class="footer">

@@ -5,4 +5,6 @@
 @import 'modules/header.css';
 @import 'modules/footer.css';
 @import 'modules/mobile.css';
-@import 'modules/frontpage.css'
+@import 'modules/frontpage.css';
+@import 'modules/builder.css';
+@import 'modules/browse-products.css';
