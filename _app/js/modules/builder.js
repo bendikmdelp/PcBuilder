@@ -2,8 +2,10 @@ import { getProducts } from "../util/get-from-db.js";
 
 export default async function builder() {
 	const productsAddedToBuilder = getProductsFromLocalStorage();
-
+	const removeAllButton = document.querySelector('.main-container__remove-all-button')
 	const chosenComponentContainer = document.querySelectorAll('.main-container__selection');
+
+	removeAllButton.addEventListener('click', handleRemoveAllButtonClick);
 
 	handlePageLoad();
 
@@ -12,8 +14,28 @@ export default async function builder() {
 		navigateToBrowseProductsPage();
 	}
 
+	function handleRemoveAllButtonClick() {
+		removeFromLocalStorage();
+		renderHTML();
+	}
+
+	function handleRemoveComponentButtonClick(event) {
+		removeClickedItem(event);
+		const filteredArray = getProductsFromLocalStorage();
+		renderHTML(filteredArray);
+	}
+
 	function handlePageLoad() {
 			renderHTML(productsAddedToBuilder);
+	}
+
+	function removeClickedItem(event) {
+		const clickedItem = event.currentTarget.dataset.category;
+		const filteredArray = productsAddedToBuilder.filter(item => {
+			return item.category !== clickedItem;
+		});
+
+		localStorage.setItem('chosenProducts', JSON.stringify(filteredArray));
 	}
 
 	function saveClickedComponentToLocalStorage(event) {
@@ -34,17 +56,25 @@ export default async function builder() {
 	}
 
 	function renderAddedProducts(products) {
-		for(let index = 1; index < chosenComponentContainer.length; index++) {
-			const product = products.find(item => {
-				return item.category === chosenComponentContainer[index].dataset.component;
-			})
-			if(product) {
-				if(chosenComponentContainer[index].dataset.component === product.category) {
-
-					renderAddedProduct(index, product);
+		
+		for(let index = 0; index < chosenComponentContainer.length; index++) {
+			chosenComponentContainer[index].innerText = ''
+			if(products) {
+				const product = products.find(item => {
+					return item.category === chosenComponentContainer[index].dataset.component;
+				})
+				if(product) {
+					if(chosenComponentContainer[index].dataset.component === product.category) {
+	
+						renderAddedProduct(index, product);
+					}
 				}
-			} else {
+				else {
+					const category = chosenComponentContainer[index].dataset.component;
+					renderCategoryButton(category, index);
+				}
 				
+			}else {	
 				const category = chosenComponentContainer[index].dataset.component;
 				renderCategoryButton(category, index);
 			}
@@ -54,6 +84,10 @@ export default async function builder() {
 
 	function renderCategoryButton(category, index) {
 		createAddComponentButtonDom(category, chosenComponentContainer[index])
+	}
+
+	function removeFromLocalStorage() {
+		localStorage.removeItem('chosenProducts')
 	}
 
 	function createAddComponentButtonDom(category, element) {
@@ -104,6 +138,9 @@ export default async function builder() {
 		chosenProductImage.src = product.images[0];
 		chosenProductPrice.innerText = `${product.price/100}Kr`;
 		removeProductButton.innerText = 'Remove';
+		removeProductButton.dataset.category = product.category;
+
+		removeProductButton.addEventListener('click', handleRemoveComponentButtonClick);
 
 		chosenProductImageContainer.append(chosenProductImage);
 		removeButtonContainer.append(removeProductButton);
