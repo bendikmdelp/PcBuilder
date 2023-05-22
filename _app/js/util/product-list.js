@@ -80,7 +80,6 @@ function addClickedProductToBuilder(event) {
 		}
 		localStorage.setItem('chosenProducts', JSON.stringify(chosenProductsArray));
 		localStorage.removeItem('clickedComponent');
-		console.log(chosenProductsArray)
 	} else {
 		chosenProductsArray.push(product);
 		chosenProductsArray[clickedElement].category = clickedCategoryBuilder;
