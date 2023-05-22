@@ -7,7 +7,6 @@ export function browseProducts() {
 	let productsArray = null
 
 	const categoryButtons = document.querySelectorAll('.category-select__component');
-	const productPriceRange = document.querySelector('.product-container__product-sorter');
 	const productPriceText = document.querySelector('.product-sorter__price')
 	const productFilter = document.querySelector('.product-sorter__filters');
 	const productListContainer = document.querySelector('.product-container__product-list');
@@ -18,7 +17,6 @@ export function browseProducts() {
 		});
 	}
 
-
 	if(clickedCategoryBuilder) {
 		displayChosenCategory(clickedCategoryBuilder);
 	}
@@ -28,6 +26,11 @@ export function browseProducts() {
 		const sortedProducts = sortProducts(clickedCategory);
 		clickedCategoryBuilder = clickedCategory;
 		renderHTMLDOM(sortedProducts);
+	}
+	
+	function handleProductAddButtonClick(event) {
+		addClickedProductToBuilder(event);
+		navigateToBuilder();
 	}
 
 	function displayChosenCategory(clickedCategory) {
@@ -251,11 +254,6 @@ export function browseProducts() {
 			productContainer.append(productListItem);
 		}
 		return productContainer;
-	}
-	
-	function handleProductAddButtonClick(event) {
-		addClickedProductToBuilder(event);
-		navigateToBuilder();
 	}
 	
 	function navigateToBuilder() {
