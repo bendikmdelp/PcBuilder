@@ -3,12 +3,8 @@ import { getProducts } from "../util/get-from-db.js";
 export default async function builder() {
 	const productsAddedToBuilder = getProductsFromLocalStorage();
 
-	const addComponentButtons = document.querySelectorAll('.main-container__add-selection-button');
 	const chosenComponentContainer = document.querySelectorAll('.main-container__selection');
 
-	addComponentButtons.forEach(element => {
-		element.addEventListener('click', handleAddComponentButtonClick);
-	});
 	handlePageLoad();
 
 	function handleAddComponentButtonClick(event) {
@@ -17,11 +13,7 @@ export default async function builder() {
 	}
 
 	function handlePageLoad() {
-		if(productsAddedToBuilder) {
 			renderHTML(productsAddedToBuilder);
-		} else {
-			console.log('nothing added')
-		}
 	}
 
 	function saveClickedComponentToLocalStorage(event) {
@@ -42,7 +34,6 @@ export default async function builder() {
 	}
 
 	function renderAddedProducts(products) {
-		console.log(products)
 		for(let index = 1; index < chosenComponentContainer.length; index++) {
 			const product = products.find(item => {
 				return item.category === chosenComponentContainer[index].dataset.component;
@@ -52,14 +43,43 @@ export default async function builder() {
 
 					renderAddedProduct(index, product);
 				}
+			} else {
+				
+				const category = chosenComponentContainer[index].dataset.component;
+				renderCategoryButton(category, index);
 			}
 			
 		}
 	}
 
+	function renderCategoryButton(category, index) {
+		createAddComponentButtonDom(category, chosenComponentContainer[index])
+	}
+
+	function createAddComponentButtonDom(category, element) {
+		const categoryName = document.createElement('td');
+		const addComponentButtonContainer = document.createElement('td');
+		const addComponentButton = document.createElement('button'); 
+
+		categoryName.className = 'selection__category-name';
+		addComponentButtonContainer.className = 'selection__button-container';
+		addComponentButton.classList = 'selection__button';
+
+		categoryName.innerText = category;
+		addComponentButton.dataset.component = category;
+		addComponentButton.innerText = 'Add Component';
+
+		addComponentButton.addEventListener('click', handleAddComponentButtonClick)
+
+		addComponentButtonContainer.append(addComponentButton);
+		element.append(
+			categoryName,
+			addComponentButtonContainer
+		);
+	}
+
 	function renderAddedProduct(index, product) {
 
-		chosenComponentContainer[index].innerText = '';
 		createProductDOMElement(product, chosenComponentContainer[index]);
 		
 	}

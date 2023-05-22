@@ -8,7 +8,7 @@
 
 
 
-.main-container__add-selection-button{
+.selection__button{
 	background-color: #00D1FF;
 	border-radius: 90px;
 	grid-column: 2/ 3;
