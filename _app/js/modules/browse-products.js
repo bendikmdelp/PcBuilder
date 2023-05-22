@@ -7,13 +7,13 @@ export function browseProducts() {
 	let productsArray = null
 
 	const categoryButtons = document.querySelectorAll('.category-select__component');
-	const productPriceText = document.querySelector('.product-sorter__price')
+	const productPriceText = document.querySelector('.product-sorter__price');
 	const productFilter = document.querySelector('.product-sorter__filters');
 	const productListContainer = document.querySelector('.product-container__product-list');
 
 	if(categoryButtons) {
 		categoryButtons.forEach(element => {
-			element.addEventListener('click', handleCategoryButtonClick)
+			element.addEventListener('click', handleCategoryButtonClick);
 		});
 	}
 
@@ -22,7 +22,7 @@ export function browseProducts() {
 	}
 
 	function handleCategoryButtonClick(event) {
-		const clickedCategory = event.currentTarget.dataset.category
+		const clickedCategory = event.currentTarget.dataset.category;
 		const sortedProducts = sortProducts(clickedCategory);
 		clickedCategoryBuilder = clickedCategory;
 		renderHTMLDOM(sortedProducts);
@@ -113,23 +113,23 @@ export function browseProducts() {
 
 	function createProductFilterDOM(array) {
 		const filterArray = array;
-		const objectKeys = getObjectKeys(filterArray[0])
-		let arrayOfProductKeys = objectKeys.reduce((acc,curr) => (acc[curr] = [], acc), {})
+		const objectKeys = getObjectKeys(filterArray[0]);
+		let arrayOfProductKeys = objectKeys.reduce((acc,curr) => (acc[curr] = [], acc), {});
 		for(const product of filterArray) {
 			for(const objectKey of objectKeys){
-				arrayOfProductKeys[objectKey].push( product[objectKey])
+				arrayOfProductKeys[objectKey].push( product[objectKey]);
 			}
 		}
 
 		const filterContainer = document.createElement('div');
-		let current = null
+		let current = null;
 
 		for(const key of objectKeys) {
 			const filterCategory = document.createElement('h5');
 
-			filterCategory.className = 'filters__category-name'
+			filterCategory.className = 'filters__category-name';
 			filterCategory.innerText = key;
-			filterContainer.append(filterCategory)
+			filterContainer.append(filterCategory);
 			for(const arrayItem of arrayOfProductKeys[key]) {
 
 				if(current !== arrayItem){
@@ -137,7 +137,7 @@ export function browseProducts() {
 					const inputLabel = document.createElement('label');
 
 					inputKey.className = 'filters__input';
-					inputKey.id = arrayItem
+					inputKey.id = arrayItem;
 					inputLabel.className = 'filters__label';
 
 					inputKey.type = 'checkbox';
@@ -147,9 +147,9 @@ export function browseProducts() {
 
 					filterContainer.append(inputKey, inputLabel);
 				}
-				current = arrayItem
+				current = arrayItem;
 			}
-			current = null
+			current = null;
 		}
 		productFilter.append(filterContainer);
 		
@@ -160,7 +160,7 @@ export function browseProducts() {
 	}
 	
 	function getClickedCategoryObjectKeys(products) {
-		let newArray = []
+		let newArray = [];
 	
 	
 		for(const product of products) {
@@ -181,19 +181,19 @@ export function browseProducts() {
 					
 				};
 			};
-			newArray.push(newObject)
+			newArray.push(newObject);
 		}
 		return newArray;
 	}
 	
 	function getLowestPrice(products) {
 		const getLowest = Math.min(...products.map(item => item.price));
-		return getLowest/100
+		return getLowest/100;
 	}
 	
 	function getHighestPrice(products) {
 		const getHighest = Math.max(...products.map(item => item.price));
-		return getHighest/100
+		return getHighest/100;
 	}
 
 	function renderProductList(array, productListContainer) {
@@ -204,7 +204,7 @@ export function browseProducts() {
 		const sorterDiv = createSorterDivDOM(productKeys);
 		const productListDom = createProductListDOM(productList, array, productKeys);
 	
-		productListContainer.innerHTML = ''
+		productListContainer.innerHTML = '';
 		productListContainer.append(sorterDiv, productListDom);
 	}
 	
@@ -212,11 +212,11 @@ export function browseProducts() {
 	
 		const productList = productArray;
 		const productContainer = document.createElement('tbody');
-		productContainer.className = 'product-list__product-list-container'
+		productContainer.className = 'product-list__product-list-container';
 	
 	
 		for(let index = 0; index < productList.length; index++) {
-			const productObject = productList[index]
+			const productObject = productList[index];
 			const productListItem = document.createElement('tr');
 			// const productCard = document.createElement('td');
 			const productName = document.createElement('td');
@@ -227,7 +227,6 @@ export function browseProducts() {
 			const productAddButton = document.createElement('button');
 	
 			productListItem.className = 'product-list-container__product-item';
-			// productCard.className = 'product-list-container__product-card';
 			productName.className = 'product-card__product-name';
 			productPrice.className = 'product-card__product-price';
 			productImage.className = 'product-card__product-image';
@@ -250,7 +249,6 @@ export function browseProducts() {
 			createDOMElementFromObject(productObject, productListItem, productKeys);
 			productListItem.append(productPrice, addButtonContainer);
 			productAddButton.addEventListener('click', handleProductAddButtonClick);
-			// productListItem.append(productCard);
 			productContainer.append(productListItem);
 		}
 		return productContainer;
@@ -264,7 +262,7 @@ export function browseProducts() {
 		const clickedElement = event.currentTarget.dataset.index;
 		let product = productsArray[clickedElement];
 		product.category = clickedCategoryBuilder;
-		let chosenProductsArray = []
+		let chosenProductsArray = [];
 		if (localStorage.getItem('chosenProducts')) {
 			chosenProductsArray = JSON.parse(localStorage.getItem('chosenProducts'));
 			const categoryAlreadyInList = checkCategoryAlreadyInList(chosenProductsArray, product);
@@ -284,7 +282,7 @@ export function browseProducts() {
 	
 	function createSorterDivDOM(productKeys) {
 		const sorterDiv = document.createElement('thead');
-		const tableTr = document.createElement('tr')
+		const tableTr = document.createElement('tr');
 	
 		const nameButton = document.createElement('th');
 		const priceButton = document.createElement('th');
@@ -312,7 +310,7 @@ export function browseProducts() {
 		tableTr.append(priceButton, emptyEnd);
 		sorterDiv.append(tableTr);
 	
-		return sorterDiv
+		return sorterDiv;
 	}
 	
 	function createDOMElementFromObject(object, element, productKeys) {
@@ -320,9 +318,9 @@ export function browseProducts() {
 		for(const property of productKeys) {
 			const productProperty = document.createElement('td');
 	
-			productProperty.className = `product-card__product-${property}`
+			productProperty.className = `product-card__product-${property}`;
 	
-			productProperty.innerText = object[property]
+			productProperty.innerText = object[property];
 	
 			element.append(productProperty);
 		}
