@@ -3,14 +3,17 @@ import {getProducts} from '../util/get-from-db.js'
 const productList = await getProducts();
 
 export function browseProducts() {
+	//Variables to hold clicked category and products
 	let clickedCategoryBuilder = getClickedCategoryFromLocalStorage();
 	let productsArray = null
 
+	//QuerySelectors
 	const categoryButtons = document.querySelectorAll('.category-select__component');
 	const productPriceText = document.querySelector('.product-sorter__price');
 	const productFilter = document.querySelector('.product-sorter__filters');
 	const productListContainer = document.querySelector('.product-container__product-list');
 
+	//Eventlisteners
 	if(categoryButtons) {
 		categoryButtons.forEach(element => {
 			element.addEventListener('click', handleCategoryButtonClick);
@@ -21,6 +24,7 @@ export function browseProducts() {
 		displayChosenCategory(clickedCategoryBuilder);
 	}
 
+	//handlers
 	function handleCategoryButtonClick(event) {
 		const clickedCategory = event.currentTarget.dataset.category;
 		const sortedProducts = sortProducts(clickedCategory);
@@ -39,23 +43,28 @@ export function browseProducts() {
 
 	}
 
+	//function to create a new array with category matching clicked category
 	function sortProducts(clicked) {
 		const clickedCategory = clicked
 		const sortedProduct = productList.filter(product => product.category.toLowerCase() === clickedCategory);
 		return sortedProduct;
 	}
 
+	//Function to render pricerange filter
 	function renderPriceRange(products) {
 		const priceRangeDom = createPriceRangeDOM(products);
 		productPriceText.after(priceRangeDom);
 	}
 
+	//Function to render product filter
 	function renderProductFilter(products) {
 		const reducedArrayObjects = getClickedCategoryObjectKeys(products);
 		createProductFilterDOM(reducedArrayObjects);
 	}
 
+	//function to create DOM elements for price filter section based on object from database
 	function createPriceRangeDOM(products) {
+		//Create Elements
 		const priceRangeContainer = document.createElement('div');
 
 		const minPriceContainer = document.createElement('div');
@@ -70,6 +79,7 @@ export function browseProducts() {
 		const minPriceInput = document.createElement('input');
 		const maxPriceInput = document.createElement('input');
 
+		//Set element value and classes
 		priceRangeContainer.className = 'product-sorter__price-slider';
 
 		minPriceContainer.className = 'price-slider__min-price-container';
@@ -111,6 +121,7 @@ export function browseProducts() {
 		return priceRangeContainer;
 	}
 
+	//Function to create DOM for filter section based on object fram database
 	function createProductFilterDOM(array) {
 		const filterArray = array;
 		const objectKeys = getObjectKeys(filterArray[0]);
@@ -155,10 +166,12 @@ export function browseProducts() {
 		
 	}
 
+	//Function which returns the keys from the entered object
 	function getObjectKeys(object) {
 		return Object.keys(object);
 	}
 	
+	//function to get the needed keys from object
 	function getClickedCategoryObjectKeys(products) {
 		let newArray = [];
 	
@@ -186,16 +199,19 @@ export function browseProducts() {
 		return newArray;
 	}
 	
+	//function to get the lowest price in array of objects
 	function getLowestPrice(products) {
 		const getLowest = Math.min(...products.map(item => item.price));
 		return getLowest/100;
 	}
 	
+	//function to get the higest price in array of objects
 	function getHighestPrice(products) {
 		const getHighest = Math.max(...products.map(item => item.price));
 		return getHighest/100;
 	}
 
+	//function to render products corelating to clicked category
 	function renderProductList(array, productListContainer) {
 		productsArray = null;
 		const productList = getClickedCategoryObjectKeys(array);
@@ -208,6 +224,7 @@ export function browseProducts() {
 		productListContainer.append(sorterDiv, productListDom);
 	}
 	
+	//function which returns DOM ELement with elements and values from products
 	function createProductListDOM(productArray, baseArray, productKeys) {
 	
 		const productList = productArray;
@@ -254,10 +271,12 @@ export function browseProducts() {
 		return productContainer;
 	}
 	
+	//Function which rededirects to builder page
 	function navigateToBuilder() {
 		window.location.href = "/_app/builder";
 	}
 	
+	//Function which adds products to localstorage to be displayed on builder page
 	function addClickedProductToBuilder(event) {
 		const clickedElement = event.currentTarget.dataset.index;
 		let product = productsArray[clickedElement];
@@ -280,6 +299,7 @@ export function browseProducts() {
 	
 	}
 	
+	//Function which creates creates head DOM elements for products table
 	function createSorterDivDOM(productKeys) {
 		const sorterDiv = document.createElement('thead');
 		const tableTr = document.createElement('tr');
@@ -313,6 +333,7 @@ export function browseProducts() {
 		return sorterDiv;
 	}
 	
+	//function to create DOM elements for various object properties
 	function createDOMElementFromObject(object, element, productKeys) {
 	
 		for(const property of productKeys) {
@@ -326,6 +347,7 @@ export function browseProducts() {
 		}
 	}
 	
+	//returns the componenet that was clicked on builder page
 	function getClickedCategoryFromLocalStorage() {
 		if(localStorage.getItem('clickedComponent')) {
 			return localStorage.getItem('clickedComponent');
@@ -334,6 +356,7 @@ export function browseProducts() {
 		}
 	}
 	
+	//Checks if the clicked product has already been added to builder localstorage
 	function checkCategoryAlreadyInList(savedList, currentProduct) {
 		if (savedList){
 			let checkIfItemExist = savedList.some(item =>{
@@ -345,7 +368,7 @@ export function browseProducts() {
 		}	
 	}
 
-
+	//function to render various HTML Elements
 	function renderHTMLDOM(products) {
 		const productArray = products;
 		renderPriceRange(productArray);
