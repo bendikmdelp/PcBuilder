@@ -357,11 +357,3 @@ export function browseProducts() {
 		renderProductList(productArray, productListContainer);
 	}
 }
-
-function getClickedCategoryFromLocalStorage() {
-	if(localStorage.getItem('clickedComponent')) {
-		return localStorage.getItem('clickedComponent');
-	}else {
-		return null;
-	}
-}
