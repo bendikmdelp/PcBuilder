@@ -65,6 +65,11 @@ function createProductListDOM(productArray, baseArray, productKeys) {
 
 function handleProductAddButtonClick(event) {
 	addClickedProductToBuilder(event);
+	navigateToBuilder();
+}
+
+function navigateToBuilder() {
+	window.location.href = "/_app/builder";
 }
 
 function addClickedProductToBuilder(event) {

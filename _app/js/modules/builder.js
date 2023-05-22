@@ -5,7 +5,10 @@ export default async function builder() {
 	const removeAllButton = document.querySelector('.main-container__remove-all-button')
 	const chosenComponentContainer = document.querySelectorAll('.main-container__selection');
 
-	removeAllButton.addEventListener('click', handleRemoveAllButtonClick);
+	if(removeAllButton) {
+		removeAllButton.addEventListener('click', handleRemoveAllButtonClick);
+	}
+
 
 	handlePageLoad();
 
