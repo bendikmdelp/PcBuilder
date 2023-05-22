@@ -60,20 +60,19 @@ export default async function builder() {
 	function renderAddedProduct(index, product) {
 
 		chosenComponentContainer[index].innerText = '';
-		const productElement = createProductDOMElement(product);
-		chosenComponentContainer[index].append(productElement);
+		createProductDOMElement(product, chosenComponentContainer[index]);
 		
 	}
 
-	function createProductDOMElement(product) {
-		const chosenProductContainer = document.createElement('div');
-		const chosenProductName = document.createElement('p');
-		const chosenProductCategory = document.createElement('p');
+	function createProductDOMElement(product, element) {
+		const chosenProductName = document.createElement('td');
+		const chosenProductCategory = document.createElement('td');
+		const chosenProductImageContainer = document.createElement('td');
 		const chosenProductImage = document.createElement('img');
-		const chosenProductPrice = document.createElement('p');
+		const chosenProductPrice = document.createElement('td');
+		const removeButtonContainer = document.createElement('td');
 		const removeProductButton = document.createElement('button');
 
-		chosenProductContainer.className = `main-container__${product.category}-selection`;
 		chosenProductName.className = `${product.category}-selection__product-name`;
 		chosenProductCategory.className = `${product.category}-selection__product-category`;
 		chosenProductPrice.className = `${product.category}-selection__product-price`;
@@ -83,18 +82,18 @@ export default async function builder() {
 		chosenProductName.innerText = product.name;
 		chosenProductCategory.innerText = product.category;
 		chosenProductImage.src = product.images[0];
-		chosenProductPrice.innerText = product.price;
+		chosenProductPrice.innerText = `${product.price/100}Kr`;
 		removeProductButton.innerText = 'Remove';
 
-		chosenProductContainer.append(
+		chosenProductImageContainer.append(chosenProductImage);
+		removeButtonContainer.append(removeProductButton);
+		element.append(
 			chosenProductCategory,
-			chosenProductImage,
+			chosenProductImageContainer,
 			chosenProductName,
 			chosenProductPrice,
-			chosenProductImage,
-			removeProductButton
+			removeButtonContainer
 			);
-		return chosenProductContainer;
 	}
 
 	function renderHTML(products) {

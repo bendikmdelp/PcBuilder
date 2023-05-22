@@ -24,47 +24,27 @@
 			<div class="divider"></div>
 	
 			<main class="builder__main-container">
-				<div class="main-container__product-descriptions main-container__selection">
-					<p>Component</p>
-					<p>Selection</p>
-					<p>Price</p>
-					<p>Vendor</p>
-				</div>
-
-				<div class="main-container__cpu-selection main-container__selection" data-component="cpu">
-					<p>CPU</p>
-					<button class="main-container__add-selection-button" data-component="cpu">add Component</button>
-					<!-- <button class="main-container__remove-selection-button">X</button> -->
-				</div>
-				<div class="main-container__motherboard-selection main-container__selection" data-component="motherboard">
-					<p>Motherboard</p>
-					<button class="main-container__add-selection-button" data-component="motherboard">add Component</button>
-
-				</div>
-				<div class="main-container__ram-selection main-container__selection" data-component="memory">
-					<p>RAM</p>
-					<button class="main-container__add-selection-button" data-component="memory">add Component</button>
-				</div>
-				<div class="main-container__storage-selection main-container__selection" data-component="storage">
-					<p>Storage</p>
-					<button class="main-container__add-selection-button" data-component="storage">add Component</button>
-				</div>
-				<div class="main-container__gpu-selection main-container__selection" data-component="gpu">
-					<p>GPU</p>
-					<button class="main-container__add-selection-button" data-component="gpu">add Component</button>
-				</div>
-				<div class="main-container__power-supply-selection main-container__selection" data-component="power supply">
-					<p>Power Supply</p>
-					<button class="main-container__add-selection-button" data-component="power supply">add Component</button>
-				</div>
-				<div class="main-container__cooler-selection main-container__selection" data-component="cooler">
-					<p>CPU cooler</p>
-					<button class="main-container__add-selection-button" data-component="sooler">add Component</button>
-				</div>
-				<div class="main-container__case-selection main-container__selection" data-component="case">
-					<p>Case</p>
-					<button class="main-container__add-selection-button" data-component="case">add Component</button>
-				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Component</th>
+							<th></th>
+							<th>Selection</th>
+							<th>price</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="main-container__selection" data-component="cpu"></tr>
+						<tr class="main-container__selection" data-component="motherboard"></tr>
+						<tr class="main-container__selection" data-component="memory"></tr>
+						<tr class="main-container__selection" data-component="storage"></tr>
+						<tr class="main-container__selection" data-component="gpu"></tr>
+						<tr class="main-container__selection" data-component="power supply"></tr>
+						<tr class="main-container__selection" data-component="cooler"></tr>
+						<tr class="main-container__selection" data-component="case"></tr>
+					</tbody>
+				</table>
 			</main>
 	
 			<footer class="footer">
