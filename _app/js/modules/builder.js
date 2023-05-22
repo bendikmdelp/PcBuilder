@@ -1,17 +1,19 @@
-import { getProducts } from "../util/get-from-db.js";
-
 export default async function builder() {
+	//constant to hold products added to builder
 	const productsAddedToBuilder = getProductsFromLocalStorage();
+
+	//Queryselectors
 	const removeAllButton = document.querySelector('.main-container__remove-all-button')
 	const chosenComponentContainer = document.querySelectorAll('.main-container__selection');
 
+	//Eventlisteners
 	if(removeAllButton) {
 		removeAllButton.addEventListener('click', handleRemoveAllButtonClick);
 	}
 
-
 	handlePageLoad();
 
+	//Handlers
 	function handleAddComponentButtonClick(event) {
 		saveClickedComponentToLocalStorage(event);
 		navigateToBrowseProductsPage();
@@ -32,6 +34,7 @@ export default async function builder() {
 			renderHTML(productsAddedToBuilder);
 	}
 
+	//removes specific
 	function removeClickedItem(event) {
 		const clickedItem = event.currentTarget.dataset.category;
 		const filteredArray = productsAddedToBuilder.filter(item => {
@@ -41,15 +44,18 @@ export default async function builder() {
 		localStorage.setItem('chosenProducts', JSON.stringify(filteredArray));
 	}
 
+	//Saves the clicked category to localstorage
 	function saveClickedComponentToLocalStorage(event) {
 		const clickedComponent = event.currentTarget.dataset.component;
 		localStorage.setItem('clickedComponent', clickedComponent);
 	}
 
+	//redirect to browse products page
 	function navigateToBrowseProductsPage() {
 		window.location.href = "/_app/browse-products";
 	}
 
+	//Returns products added to localstorage
 	function getProductsFromLocalStorage() {
 		if(localStorage.getItem('chosenProducts')) {
 			return JSON.parse(localStorage.getItem('chosenProducts'));
@@ -58,6 +64,7 @@ export default async function builder() {
 		}
 	}
 
+	//renders products added to localstorage from browse products
 	function renderAddedProducts(products) {
 		
 		for(let index = 0; index < chosenComponentContainer.length; index++) {
@@ -85,14 +92,17 @@ export default async function builder() {
 		}
 	}
 
+	//Renders add component button
 	function renderCategoryButton(category, index) {
 		createAddComponentButtonDom(category, chosenComponentContainer[index])
 	}
 
+	//Removes all products added to localstorage
 	function removeFromLocalStorage() {
 		localStorage.removeItem('chosenProducts')
 	}
 
+	//Creates DOM for add component buttons
 	function createAddComponentButtonDom(category, element) {
 		const categoryName = document.createElement('td');
 		const addComponentButtonContainer = document.createElement('td');
@@ -115,12 +125,14 @@ export default async function builder() {
 		);
 	}
 
+	//renders products added to builder
 	function renderAddedProduct(index, product) {
 
 		createProductDOMElement(product, chosenComponentContainer[index]);
 		
 	}
 
+	//creates DOM for added products
 	function createProductDOMElement(product, element) {
 		const chosenProductName = document.createElement('td');
 		const chosenProductCategory = document.createElement('td');
@@ -156,6 +168,7 @@ export default async function builder() {
 			);
 	}
 
+	//Function to add elements to HTML page
 	function renderHTML(products) {
 		renderAddedProducts(products);
 	}
