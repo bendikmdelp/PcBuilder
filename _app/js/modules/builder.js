@@ -130,11 +130,11 @@ export default async function builder() {
 		const removeButtonContainer = document.createElement('td');
 		const removeProductButton = document.createElement('button');
 
-		chosenProductName.className = `${product.category}-selection__product-name`;
-		chosenProductCategory.className = `${product.category}-selection__product-category`;
-		chosenProductPrice.className = `${product.category}-selection__product-price`;
-		chosenProductImage.className = `${product.category}-selection__product-image`;
-		removeProductButton.className = `${product.category}-selection__remove-button`;
+		chosenProductName.className = `product-selection__product-name`;
+		chosenProductCategory.className = `product-selection__product-category`;
+		chosenProductPrice.className = `product-selection__product-price`;
+		chosenProductImage.className = `product-selection__product-image`;
+		removeProductButton.className = `product-selection__remove-button`;
 
 		chosenProductName.innerText = product.name;
 		chosenProductCategory.innerText = product.category;

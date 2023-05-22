@@ -6,7 +6,19 @@
 	flex-direction: column;
 }
 
+table {
+	border-collapse: separate;
+	border-spacing: 0 15px;
+ }
 
+.main-container__selection {
+	justify-content: center;
+	padding: 10px;
+}
+
+.product-selection__product-image {
+	width: 10vw;
+}
 
 .selection__button{
 	background-color: #00D1FF;
