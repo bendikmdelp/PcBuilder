@@ -3,25 +3,42 @@ import { renderProductList } from '../util/product-list.js';
 import { getHighestPrice, getLowestPrice, getClickedCategoryObjectKeys, getObjectKeys } from '../util/sort-filter.js';
 
 const productList = await getProducts();
+export let clickedCategoryBuilder = getClickedCategoryFromLocalStorage();
+export function browseProducts() {
 
-export default function browseProducts() {
+
 	const categoryButtons = document.querySelectorAll('.category-select__component');
 	const productPriceRange = document.querySelector('.product-container__product-sorter');
 	const productPriceText = document.querySelector('.product-sorter__price')
 	const productFilter = document.querySelector('.product-sorter__filters');
 	const productListContainer = document.querySelector('.product-container__product-list');
 
-	categoryButtons.forEach(element => {
-		element.addEventListener('click', handleCategoryButtonClick)
-	});
+	if(categoryButtons) {
+		categoryButtons.forEach(element => {
+			element.addEventListener('click', handleCategoryButtonClick)
+		});
+	}
+
+
+	if(clickedCategoryBuilder) {
+		displayChosenCategory(clickedCategoryBuilder);
+	}
 
 	function handleCategoryButtonClick(event) {
-		const sortedProducts = sortProducts(event);
+		const clickedCategory = event.currentTarget.dataset.category
+		const sortedProducts = sortProducts(clickedCategory);
+		clickedCategoryBuilder = clickedCategory;
 		renderHTMLDOM(sortedProducts);
 	}
 
-	function sortProducts(event) {
-		const clickedCategory = event.currentTarget.dataset.category
+	function displayChosenCategory(clickedCategory) {
+		const sortedProducts = sortProducts(clickedCategory);
+		renderHTMLDOM(sortedProducts);
+
+	}
+
+	function sortProducts(clicked) {
+		const clickedCategory = clicked
 		const sortedProduct = productList.filter(product => product.category.toLowerCase() === clickedCategory);
 		return sortedProduct;
 	}
@@ -137,10 +154,20 @@ export default function browseProducts() {
 	}
 
 
+
+
 	function renderHTMLDOM(products) {
 		const productArray = products;
 		renderPriceRange(productArray);
 		renderProductFilter(productArray);
 		renderProductList(productArray, productListContainer);
+	}
+}
+
+function getClickedCategoryFromLocalStorage() {
+	if(localStorage.getItem('clickedComponent')) {
+		return localStorage.getItem('clickedComponent');
+	}else {
+		return null;
 	}
 }

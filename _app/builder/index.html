@@ -14,9 +14,9 @@
 			<header class="header">
 				<img class="header__logo" src="/_app/assets/logo-header.svg" alt="">
 				<div class="header__button-container">
-					<button class="button-container__builder">Builder</button>
-					<button class="button-container__completed-builds">Completed Builds</button>
-					<button class="button-container__browse-products">Browse Products</button>
+					<button class="button-container__builder" data-site="builder">Builder</button>
+					<button class="button-container__completed-builds" data-site="completed">Completed Builds</button>
+					<button class="button-container__browse-products" data-site="browse">Browse Products</button>
 				</div>
 	
 			</header>
@@ -24,49 +24,28 @@
 			<div class="divider"></div>
 	
 			<main class="builder__main-container">
-				<div class="main-container__product-descriptions main-container__selection">
-					<p>Component</p>
-					<p>Selection</p>
-					<p>Price</p>
-					<p>Vendor</p>
-				</div>
-
-				<div class="main-container__cpu-selection main-container__selection">
-					<p>CPU</p>
-					<p>Ryzen 5900x</p>
-					<p>5900Kr</p>
-					<p>Komplett.no</p>
-					<button class="main-container__remove-selection-button">X</button>
-				</div>
-				<div class="main-container__motherboard-selection main-container__selection">
-					<p>Motherboard</p>
-					<button class="main-container__add-selection-button">add Component</button>
-
-				</div>
-				<div class="main-container__ram-selection main-container__selection">
-					<p>RAM</p>
-					<button class="main-container__add-selection-button">add Component</button>
-				</div>
-				<div class="main-container__storage-selection main-container__selection">
-					<p>Storage</p>
-					<button class="main-container__add-selection-button">add Component</button>
-				</div>
-				<div class="main-container__gpu-selection main-container__selection">
-					<p>GPU</p>
-					<button class="main-container__add-selection-button">add Component</button>
-				</div>
-				<div class="main-container__power-supply-selection main-container__selection">
-					<p>Power Supply</p>
-					<button class="main-container__add-selection-button">add Component</button>
-				</div>
-				<div class="main-container__cooler-selection main-container__selection">
-					<p>CPU cooler</p>
-					<button class="main-container__add-selection-button">add Component</button>
-				</div>
-				<div class="main-container__case-selection main-container__selection">
-					<p>Case</p>
-					<button class="main-container__add-selection-button">add Component</button>
-				</div>
+				<button class="main-container__remove-all-button">Remove All</button>
+				<table>
+					<thead>
+						<tr>
+							<th>Component</th>
+							<th></th>
+							<th>Selection</th>
+							<th>price</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="main-container__selection" data-component="cpu"></tr>
+						<tr class="main-container__selection" data-component="motherboard"></tr>
+						<tr class="main-container__selection" data-component="memory"></tr>
+						<tr class="main-container__selection" data-component="storage"></tr>
+						<tr class="main-container__selection" data-component="gpu"></tr>
+						<tr class="main-container__selection" data-component="power supply"></tr>
+						<tr class="main-container__selection" data-component="cooler"></tr>
+						<tr class="main-container__selection" data-component="case"></tr>
+					</tbody>
+				</table>
 			</main>
 	
 			<footer class="footer">
