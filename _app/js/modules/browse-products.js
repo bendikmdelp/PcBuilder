@@ -61,6 +61,32 @@ export function browseProducts() {
 		updateProductListFilter(event, isChecked);
 	}
 
+	function handleTableHeadRowClick(event) {
+		//console.log(event.currentTarget.cellIndex)
+		const tableBody = getTableBody();
+		const rows = getTableRows(tableBody);
+		sortProductList(event, rows, tableBody);
+	}
+
+	function getTableBody() {
+		return document.querySelector('.product-list__product-list-container');
+	}
+
+	function getTableRows(tableBody) {
+		const rows = Array.from(tableBody.rows);
+		return rows;
+	}
+
+	function sortProductList(event, rows, tableBody) {
+		const cellIndex = event.currentTarget.cellIndex;
+		rows.sort((tr1, tr2) => {
+			const tr1Text = tr1.cells[cellIndex].textContent;
+			const tr2Text = tr2.cells[cellIndex].textContent;
+			return tr1Text.localeCompare(tr2Text);
+		});
+		tableBody.append(...rows);
+	}
+
 	function checkIfChecked(event) {
 		return event.currentTarget.checked;
 	}
@@ -380,11 +406,17 @@ export function browseProducts() {
 	function createSorterDivDOM(productKeys) {
 		const sorterDiv = document.createElement('thead');
 		const tableTr = document.createElement('tr');
+
+		let thList = []
 	
 		const nameButton = document.createElement('th');
 		const priceButton = document.createElement('th');
 		const emptyStart = document.createElement('th');
 		const emptyEnd = document.createElement('th');
+		thList.push(
+			nameButton,
+			priceButton,
+		);
 	
 		sorterDiv.className = 'product-list__sorter-container';
 		nameButton.className = 'sorter-container__name';
@@ -398,6 +430,7 @@ export function browseProducts() {
 		for(const key of productKeys) {
 			const sortKeyButton = document.createElement('th');
 	
+			thList.push(sortKeyButton);
 			sortKeyButton.className = `sorter-container__${key}`;
 	
 			sortKeyButton.innerText = key;
@@ -406,7 +439,11 @@ export function browseProducts() {
 		}
 		tableTr.append(priceButton, emptyEnd);
 		sorterDiv.append(tableTr);
-	
+
+		thList.forEach(element => {
+			element.addEventListener('click', handleTableHeadRowClick);
+		})
+
 		return sorterDiv;
 	}
 	
