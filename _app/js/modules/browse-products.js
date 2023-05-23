@@ -5,7 +5,8 @@ const productList = await getProducts();
 export function browseProducts() {
 	//Variables to hold clicked category and products
 	let clickedCategoryBuilder = getClickedCategoryFromLocalStorage();
-	let productsArray = null
+	let productsArray = null;
+	let renderedArray = null;
 
 	//QuerySelectors
 	const categoryButtons = document.querySelectorAll('.category-select__component');
@@ -43,6 +44,50 @@ export function browseProducts() {
 
 	}
 
+	function handleMaxPriceInputChange(event) {
+		const maxPriceOutput = getMaxPriceOutputElement();
+		const newMaxPrice = updateMaxpriceOutput(event, maxPriceOutput);
+		updateProductList(newMaxPrice, 'max');
+	}
+
+	function handleMinPriceInputChange(event) {
+		const minPriceOutput = getMinPriceOutputElement();
+		const newMinPrice = updateMinPriceOutput(event, minPriceOutput);
+		updateProductList(newMinPrice, 'min');
+	}
+
+	function getMaxPriceOutputElement() {
+		return document.querySelector('.max-price-container__price')
+	}
+
+	function updateMaxpriceOutput(event, element) {
+		const newMaxPrice = event.currentTarget.value;
+		element.innerText = newMaxPrice;
+		return newMaxPrice
+	}
+
+	function getMinPriceOutputElement() {
+		return document.querySelector('.min-price-container__price')
+	}
+
+	function updateMinPriceOutput(event, element) {
+		const newMinPrice = event.currentTarget.value;
+		element.innerText = newMinPrice;
+		return newMinPrice
+	}
+
+	function updateProductList(price, range) {
+		const newPrice = price;
+		let filteredArray = null;
+		if(range === 'min') {
+			filteredArray = renderedArray.filter(item => item.price/100 >= newPrice);
+			renderProductList(filteredArray, productListContainer);
+		} else if (range === 'max') {
+			filteredArray = renderedArray.filter(item => item.price/100 <= newPrice);
+			renderProductList(filteredArray, productListContainer);
+		}
+	}
+
 	//function to create a new array with category matching clicked category
 	function sortProducts(clicked) {
 		const clickedCategory = clicked
@@ -69,11 +114,11 @@ export function browseProducts() {
 
 		const minPriceContainer = document.createElement('div');
 		const minLabel = document.createElement('label');
-		const minPrice = document.createElement('p');
+		const minPrice = document.createElement('output');
 
 		const maxPriceContainer = document.createElement('div');
 		const maxLabel = document.createElement('label');
-		const maxPrice = document.createElement('p');
+		const maxPrice = document.createElement('output');
 
 		const rangeSliderContainer = document.createElement('div');
 		const minPriceInput = document.createElement('input');
@@ -94,10 +139,12 @@ export function browseProducts() {
 		minPriceInput.className = 'range-container__min-input';
 		maxPriceInput.className = 'range-container__max-input';
 
-		minLabel.innerText = 'Min';
+		minLabel.innerText = 'Min ';
+		minLabel.for = 'min'
 		minPrice.innerText = getLowestPrice(products);
 
-		maxLabel.innerText = 'Max';
+		maxLabel.innerText = 'Max ';
+		maxLabel.for = 'max'
 		maxPrice.innerText = getHighestPrice(products);
 
 		minPriceInput.type = 'range';
@@ -105,11 +152,16 @@ export function browseProducts() {
 		minPriceInput.min = getLowestPrice(products);
 		minPriceInput.max = getHighestPrice(products);
 		minPriceInput.value = getLowestPrice(products);
+		minPriceInput.name = 'min';
 
 		maxPriceInput.type = 'range';
 		maxPriceInput.min = getLowestPrice(products);
 		maxPriceInput.max = getHighestPrice(products);
 		maxPriceInput.value = getHighestPrice(products);
+		maxPriceInput.name = 'max';
+
+		minPriceInput.addEventListener('input', handleMinPriceInputChange);
+		maxPriceInput.addEventListener('input', handleMaxPriceInputChange);
 
 		minPriceContainer.append(minLabel, minPrice);
 		maxPriceContainer.append(maxLabel, maxPrice);
@@ -371,6 +423,7 @@ export function browseProducts() {
 	//function to render various HTML Elements
 	function renderHTMLDOM(products) {
 		const productArray = products;
+		renderedArray = productArray;
 		renderPriceRange(productArray);
 		renderProductFilter(productArray);
 		renderProductList(productArray, productListContainer);
