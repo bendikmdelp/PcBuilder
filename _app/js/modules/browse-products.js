@@ -119,12 +119,14 @@ export function browseProducts() {
 	//Function to render pricerange filter
 	function renderPriceRange(products) {
 		const priceRangeDom = createPriceRangeDOM(products);
-		productPriceText.after(priceRangeDom);
+		productPriceText.innerText = '';
+		productPriceText.append(priceRangeDom);
 	}
 
 	//Function to render product filter
 	function renderProductFilter(products) {
 		const reducedArrayObjects = getClickedCategoryObjectKeys(products);
+		productFilter.innerText = '';
 		createProductFilterDOM(reducedArrayObjects);
 	}
 
