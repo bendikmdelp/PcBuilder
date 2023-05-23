@@ -173,14 +173,14 @@ export function browseProducts() {
 		minPriceInput.type = 'range';
 
 		minPriceInput.min = getLowestPrice(products);
-		minPriceInput.max = getHighestPrice(products);
+		minPriceInput.max = getHighestPrice(products)+1;
 		minPriceInput.value = getLowestPrice(products);
 		minPriceInput.name = 'min';
 
 		maxPriceInput.type = 'range';
 		maxPriceInput.min = getLowestPrice(products);
-		maxPriceInput.max = getHighestPrice(products);
-		maxPriceInput.value = getHighestPrice(products);
+		maxPriceInput.max = getHighestPrice(products)+1;
+		maxPriceInput.value = getHighestPrice(products)+1;
 		maxPriceInput.name = 'max';
 
 		minPriceInput.addEventListener('input', handleMinPriceInputChange);
