@@ -5,7 +5,8 @@ const productList = await getProducts();
 export function browseProducts() {
 	//Variables to hold clicked category and products
 	let clickedCategoryBuilder = getClickedCategoryFromLocalStorage();
-	let productsArray = null
+	let productsArray = null;
+	let renderedArray = null;
 
 	//QuerySelectors
 	const categoryButtons = document.querySelectorAll('.category-select__component');
@@ -43,6 +44,97 @@ export function browseProducts() {
 
 	}
 
+	function handleMaxPriceInputChange(event) {
+		const maxPriceOutput = getMaxPriceOutputElement();
+		const newMaxPrice = updateMaxpriceOutput(event, maxPriceOutput);
+		updateProductList(newMaxPrice, 'max');
+	}
+
+	function handleMinPriceInputChange(event) {
+		const minPriceOutput = getMinPriceOutputElement();
+		const newMinPrice = updateMinPriceOutput(event, minPriceOutput);
+		updateProductList(newMinPrice, 'min');
+	}
+
+	function handleFilterCheckboxChange(event) {
+		const isChecked = checkIfChecked(event)
+		updateProductListFilter(event, isChecked);
+	}
+
+	function handleTableHeadRowClick(event) {
+		//console.log(event.currentTarget.cellIndex)
+		const tableBody = getTableBody();
+		const rows = getTableRows(tableBody);
+		sortProductList(event, rows, tableBody);
+	}
+
+	function getTableBody() {
+		return document.querySelector('.product-list__product-list-container');
+	}
+
+	function getTableRows(tableBody) {
+		const rows = Array.from(tableBody.rows);
+		return rows;
+	}
+
+	function sortProductList(event, rows, tableBody) {
+		const cellIndex = event.currentTarget.cellIndex;
+		rows.sort((tr1, tr2) => {
+			const tr1Text = tr1.cells[cellIndex].textContent;
+			const tr2Text = tr2.cells[cellIndex].textContent;
+			return tr1Text.localeCompare(tr2Text);
+		});
+		tableBody.append(...rows);
+	}
+
+	function checkIfChecked(event) {
+		return event.currentTarget.checked;
+	}
+
+	function updateProductListFilter(event, isChecked) {
+		const clickedBox = event.currentTarget.name;
+		const clickedSpec = event.currentTarget.id;
+		if(isChecked) {
+			const filteredArray = renderedArray.filter(item => item[clickedSpec] == clickedBox);
+			renderProductList(filteredArray, productListContainer);
+		}else {
+			renderProductList(renderedArray, productListContainer);
+		}
+
+	}
+
+	function getMaxPriceOutputElement() {
+		return document.querySelector('.max-price-container__price')
+	}
+
+	function updateMaxpriceOutput(event, element) {
+		const newMaxPrice = event.currentTarget.value;
+		element.innerText = newMaxPrice;
+		return newMaxPrice
+	}
+
+	function getMinPriceOutputElement() {
+		return document.querySelector('.min-price-container__price')
+	}
+
+	function updateMinPriceOutput(event, element) {
+		const newMinPrice = event.currentTarget.value;
+		element.innerText = newMinPrice;
+		return newMinPrice
+	}
+
+	function updateProductList(price, range) {
+		const newPrice = price;
+		let filteredArray = null;
+		if(range === 'min') {
+			filteredArray = renderedArray.filter(item => item.price/100 >= newPrice);
+			renderProductList(filteredArray, productListContainer);
+		} else if (range === 'max') {
+			filteredArray = renderedArray.filter(item => item.price/100 <= newPrice);
+			renderProductList(filteredArray, productListContainer);
+		}
+	}
+
 	//function to create a new array with category matching clicked category
 	function sortProducts(clicked) {
 		const clickedCategory = clicked
@@ -53,12 +145,14 @@ export function browseProducts() {
 	//Function to render pricerange filter
 	function renderPriceRange(products) {
 		const priceRangeDom = createPriceRangeDOM(products);
-		productPriceText.after(priceRangeDom);
+		productPriceText.innerText = '';
+		productPriceText.append(priceRangeDom);
 	}
 
 	//Function to render product filter
 	function renderProductFilter(products) {
 		const reducedArrayObjects = getClickedCategoryObjectKeys(products);
+		productFilter.innerText = '';
 		createProductFilterDOM(reducedArrayObjects);
 	}
 
@@ -69,11 +163,11 @@ export function browseProducts() {
 
 		const minPriceContainer = document.createElement('div');
 		const minLabel = document.createElement('label');
-		const minPrice = document.createElement('p');
+		const minPrice = document.createElement('output');
 
 		const maxPriceContainer = document.createElement('div');
 		const maxLabel = document.createElement('label');
-		const maxPrice = document.createElement('p');
+		const maxPrice = document.createElement('output');
 
 		const rangeSliderContainer = document.createElement('div');
 		const minPriceInput = document.createElement('input');
@@ -94,22 +188,29 @@ export function browseProducts() {
 		minPriceInput.className = 'range-container__min-input';
 		maxPriceInput.className = 'range-container__max-input';
 
-		minLabel.innerText = 'Min';
+		minLabel.innerText = 'Min ';
+		minLabel.for = 'min'
 		minPrice.innerText = getLowestPrice(products);
 
-		maxLabel.innerText = 'Max';
+		maxLabel.innerText = 'Max ';
+		maxLabel.for = 'max'
 		maxPrice.innerText = getHighestPrice(products);
 
 		minPriceInput.type = 'range';
 
 		minPriceInput.min = getLowestPrice(products);
-		minPriceInput.max = getHighestPrice(products);
+		minPriceInput.max = getHighestPrice(products)+1;
 		minPriceInput.value = getLowestPrice(products);
+		minPriceInput.name = 'min';
 
 		maxPriceInput.type = 'range';
 		maxPriceInput.min = getLowestPrice(products);
-		maxPriceInput.max = getHighestPrice(products);
-		maxPriceInput.value = getHighestPrice(products);
+		maxPriceInput.max = getHighestPrice(products)+1;
+		maxPriceInput.value = getHighestPrice(products)+1;
+		maxPriceInput.name = 'max';
+
+		minPriceInput.addEventListener('input', handleMinPriceInputChange);
+		maxPriceInput.addEventListener('input', handleMaxPriceInputChange);
 
 		minPriceContainer.append(minLabel, minPrice);
 		maxPriceContainer.append(maxLabel, maxPrice);
@@ -148,13 +249,15 @@ export function browseProducts() {
 					const inputLabel = document.createElement('label');
 
 					inputKey.className = 'filters__input';
-					inputKey.id = arrayItem;
+					inputKey.name = arrayItem;
+					inputKey.id = key;
 					inputLabel.className = 'filters__label';
 
 					inputKey.type = 'checkbox';
 					inputLabel.for = arrayItem;
 
 					inputLabel.innerText = arrayItem;
+					inputKey.addEventListener('change', handleFilterCheckboxChange);
 
 					filterContainer.append(inputKey, inputLabel);
 				}
@@ -303,11 +406,17 @@ export function browseProducts() {
 	function createSorterDivDOM(productKeys) {
 		const sorterDiv = document.createElement('thead');
 		const tableTr = document.createElement('tr');
+
+		let thList = []
 	
 		const nameButton = document.createElement('th');
 		const priceButton = document.createElement('th');
 		const emptyStart = document.createElement('th');
 		const emptyEnd = document.createElement('th');
+		thList.push(
+			nameButton,
+			priceButton,
+		);
 	
 		sorterDiv.className = 'product-list__sorter-container';
 		nameButton.className = 'sorter-container__name';
@@ -321,6 +430,7 @@ export function browseProducts() {
 		for(const key of productKeys) {
 			const sortKeyButton = document.createElement('th');
 	
+			thList.push(sortKeyButton);
 			sortKeyButton.className = `sorter-container__${key}`;
 	
 			sortKeyButton.innerText = key;
@@ -329,7 +439,11 @@ export function browseProducts() {
 		}
 		tableTr.append(priceButton, emptyEnd);
 		sorterDiv.append(tableTr);
-	
+
+		thList.forEach(element => {
+			element.addEventListener('click', handleTableHeadRowClick);
+		})
+
 		return sorterDiv;
 	}
 	
@@ -371,6 +485,7 @@ export function browseProducts() {
 	//function to render various HTML Elements
 	function renderHTMLDOM(products) {
 		const productArray = products;
+		renderedArray = productArray;
 		renderPriceRange(productArray);
 		renderProductFilter(productArray);
 		renderProductList(productArray, productListContainer);
