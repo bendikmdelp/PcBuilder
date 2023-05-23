@@ -1,13 +1,19 @@
-import { getProducts } from "../util/get-from-db.js";
+import { getCompletedBuilds, getProducts } from "../util/get-from-db.js";
 
 const productList = await getProducts();
+const buildsList = await getCompletedBuilds();
 
 export default function frontPage() {
+	console.log(buildsList)
 
 	const mostPopularProductsList = document.querySelector('.popular-products__list');
 	const completedBuildsContainer = document.querySelector('.main-container__completed-builds');
 
-	onPageLoad();
+	if(mostPopularProductsList && completedBuildsContainer) {
+		onPageLoad();
+	}
+
+
 
 	function onPageLoad() {
 		populateMostPopularProducts();
@@ -36,14 +42,17 @@ export default function frontPage() {
 	}
 
 	function generateTenRandomNubers(products, array, index) {
-		for(index; array.length < 10; index++) {
-			let number = getRandomNumber(products);
-			if(array.includes(number)) {
-				generateTenRandomNubers(products, array, index);
-			} else {
-				array.push(number);
+		if(array.length < 10) {
+			for(index; array.length < 10; index++) {
+				let number = getRandomNumber(products);
+				if(array.includes(number)) {
+					generateTenRandomNubers(products, array, index);
+				} else {
+					array.push(number);
+				}
 			}
 		}
+
 	}
 
 	function getRandomNumber(products) {
@@ -69,14 +78,47 @@ export default function frontPage() {
 		}
 	}
 
+	// function getRandomCompletedBuilds() {
+	// 	const builds = buildsList;
+	// 	const randomIndex = getRandomIndexes(builds)
+	// 	const productNames = getBuildInfo(randomIndex, builds);
+	// 	return productNames;
+	// }
+
+	function renderCompletedBuilds(builds) {
+		const buildList = builds;
+		console.log(buildList)
+		for(const build of buildList) {
+			const buildFigure = createBuildFigureDOM(build);
+			completedBuildsContainer.append(buildFigure);
+		}
+	}
+
+	function createBuildFigureDOM(build) {
+		const figureElement = document.createElement('figure');
+		const imageElement = document.createElement('img');
+		const figCaptionElement = document.createElement('figcaption');
+
+		imageElement.src = build.images[0];
+		figCaptionElement.innerText = build.name;
+
+		figureElement.append(
+			imageElement,
+			figCaptionElement
+		);
+
+		return figureElement;
+	}
+
+
+
 	function renderHTML(defined) {
 		if(defined === 'products') {
 			const randomProductNames = getRandomProductNames();
 			renderMostPopularProducts(randomProductNames);
+		}else if (defined === 'builds') {
+			//const randomCompletedBuilds = getRandomCompletedBuilds();
+			renderCompletedBuilds(buildsList);
 		}
-		// } else if (defined === 'builds') {
-		// 	const randomCompletedBuilds = getRandomCompletedBuilds();
-		// 	renderCompletedBuilds(randomCompletedBuilds);
-		// }
 	}
 }
