@@ -33,7 +33,18 @@ export async function getProducts() {
 			colour
 		 }`
 
-	const products = await sanity.fetch(query)
+	const products = await sanity.fetch(query);
 
 	return products
+}
+
+export async function getCompletedBuilds() {
+	const query = `*[_type == "completedBuild"] {
+		name,
+		"images": images[].asset -> url,
+	}`;
+
+	const builds = await sanity.fetch(query);
+
+	return builds;
 }
