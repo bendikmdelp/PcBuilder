@@ -56,6 +56,27 @@ export function browseProducts() {
 		updateProductList(newMinPrice, 'min');
 	}
 
+	function handleFilterCheckboxChange(event) {
+		const isChecked = checkIfChecked(event)
+		updateProductListFilter(event, isChecked);
+	}
+
+	function checkIfChecked(event) {
+		return event.currentTarget.checked;
+	}
+
+	function updateProductListFilter(event, isChecked) {
+		const clickedBox = event.currentTarget.name;
+		const clickedSpec = event.currentTarget.id;
+		if(isChecked) {
+			const filteredArray = renderedArray.filter(item => item[clickedSpec] == clickedBox);
+			renderProductList(filteredArray, productListContainer);
+		}else {
+			renderProductList(renderedArray, productListContainer);
+		}
+
+	}
+
 	function getMaxPriceOutputElement() {
 		return document.querySelector('.max-price-container__price')
 	}
@@ -200,13 +221,15 @@ export function browseProducts() {
 					const inputLabel = document.createElement('label');
 
 					inputKey.className = 'filters__input';
-					inputKey.id = arrayItem;
+					inputKey.name = arrayItem;
+					inputKey.id = key;
 					inputLabel.className = 'filters__label';
 
 					inputKey.type = 'checkbox';
 					inputLabel.for = arrayItem;
 
 					inputLabel.innerText = arrayItem;
+					inputKey.addEventListener('change', handleFilterCheckboxChange);
 
 					filterContainer.append(inputKey, inputLabel);
 				}
