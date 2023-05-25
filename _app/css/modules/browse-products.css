@@ -3,7 +3,7 @@
 	justify-items: center;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
-	height: 30vH;
+	height: 100%;
 }
 
 .category-select__component{
@@ -66,4 +66,19 @@ input[type=range] {
 
  .product-list-container__product-item {
 	justify-content: center;
+ }
+
+ @media screen and (max-width: 426px) {
+	.main-container__category-select {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+
+	.product-container__product-sorter {
+		display: none;
+	}
+
+	.product-container__product-list {
+		width: 100vw;
+		font-size: 2vh;
+	}
  }
