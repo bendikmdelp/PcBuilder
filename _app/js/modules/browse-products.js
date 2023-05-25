@@ -427,15 +427,17 @@ export function browseProducts() {
 	
 	
 		tableTr.append(emptyStart, nameButton);
-		for(const key of productKeys) {
-			const sortKeyButton = document.createElement('th');
-	
-			thList.push(sortKeyButton);
-			sortKeyButton.className = `sorter-container__${key}`;
-	
-			sortKeyButton.innerText = key;
-	
-			tableTr.append(sortKeyButton);
+		if(window.innerWidth > 426) {
+			for(const key of productKeys) {
+				const sortKeyButton = document.createElement('th');
+		
+				thList.push(sortKeyButton);
+				sortKeyButton.className = `sorter-container__${key}`;
+		
+				sortKeyButton.innerText = key;
+		
+				tableTr.append(sortKeyButton);
+			}
 		}
 		tableTr.append(priceButton, emptyEnd);
 		sorterDiv.append(tableTr);
@@ -450,15 +452,18 @@ export function browseProducts() {
 	//function to create DOM elements for various object properties
 	function createDOMElementFromObject(object, element, productKeys) {
 	
-		for(const property of productKeys) {
-			const productProperty = document.createElement('td');
-	
-			productProperty.className = `product-card__product-${property}`;
-	
-			productProperty.innerText = object[property];
-	
-			element.append(productProperty);
+		if(window.innerWidth > 426) {
+			for(const property of productKeys) {
+				const productProperty = document.createElement('td');
+		
+				productProperty.className = `product-card__product-${property}`;
+		
+				productProperty.innerText = object[property];
+		
+				element.append(productProperty);
+			}
 		}
+		
 	}
 	
 	//returns the componenet that was clicked on builder page
