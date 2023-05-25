@@ -6,11 +6,13 @@ body {
 	padding: var(--gap-padding);
 	text-transform: uppercase;
 	-webkit-font-smoothing: antialiased;
+	width: 100%;
 }
 
 a:hover {
 	text-decoration: underline;
 }
+
 
 @media (max-width: 769px) {
 	body{
