@@ -1,13 +1,21 @@
 export default function navigateToPage() {
 	const homeLogo = document.querySelector('.header__logo');
-	const builderButton = document.querySelector('.button-container__builder');
-	const browseProductsButton = document.querySelector('.button-container__completed-builds');
-	const completedBuildsButton = document.querySelector('.button-container__browse-products');
+	const homeLogoMobile = document.querySelector('.header-mobile__logo');
+	const builderButton = document.querySelectorAll('.button-container__builder');
+	const browseProductsButton = document.querySelectorAll('.button-container__completed-builds');
+	const completedBuildsButton = document.querySelectorAll('.button-container__browse-products');
 
 	homeLogo.addEventListener('click', handleNavigateToHome);
-	builderButton.addEventListener('click', handleNavigiationClick);
-	browseProductsButton.addEventListener('click', handleNavigiationClick);
-	completedBuildsButton.addEventListener('click', handleNavigiationClick);
+	homeLogoMobile.addEventListener('click', handleNavigateToHome);
+	builderButton.forEach(button => {
+		button.addEventListener('click', handleNavigiationClick);
+	})
+	browseProductsButton.forEach(button => {
+		button.addEventListener('click', handleNavigiationClick);
+	})
+	completedBuildsButton.forEach(button => {
+		button.addEventListener('click', handleNavigiationClick);
+	})
 
 	function handleNavigateToHome() {
 		redirectToHome();
@@ -23,6 +31,7 @@ export default function navigateToPage() {
 
 	function redirectToPage(event) {
 		const clickedLink = event.currentTarget.dataset.site;
+		console.log(clickedLink)
 
 		switch (clickedLink) {
 			case "builder":
