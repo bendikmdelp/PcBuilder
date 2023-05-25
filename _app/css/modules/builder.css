@@ -35,3 +35,9 @@ table {
 	color: #FF0000;
 	width: fit-content;
 }
+
+@media screen and (max-width: 426px) {
+	.builder__main-container {
+		font-size: 1.5vh;
+	}
+}
