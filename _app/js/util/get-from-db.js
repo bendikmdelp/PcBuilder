@@ -33,7 +33,7 @@ export async function getProducts() {
 			colour
 		 }`
 
-	const products = await sanity.fetch(query);
+	const products = getFromDbTryCatch(query);
 
 	return products
 }
@@ -44,7 +44,16 @@ export async function getCompletedBuilds() {
 		"images": images[].asset -> url,
 	}`;
 
-	const builds = await sanity.fetch(query);
+	const builds = getFromDbTryCatch(query);
 
 	return builds;
+}
+
+async function getFromDbTryCatch(query) {
+	try {
+		const data = await sanity.fetch(query)
+		return data
+	} catch (Error) {
+		console.log(Error);
+	}
 }
