@@ -13,4 +13,4 @@ The application has the following features:
 - Javascript
 - Sanity
 
-See live demo here: 
+See live demo here: https://pc-build-helper.netlify.app/
