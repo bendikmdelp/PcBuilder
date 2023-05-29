@@ -33,7 +33,7 @@ export async function getProducts() {
 			colour
 		 }`
 
-	const products = getFromDbTryCatch(query);
+	const products = await getFromDbTryCatch(query);
 
 	return products
 }
@@ -44,7 +44,7 @@ export async function getCompletedBuilds() {
 		"images": images[].asset -> url,
 	}`;
 
-	const builds = getFromDbTryCatch(query);
+	const builds = await getFromDbTryCatch(query);
 
 	return builds;
 }
