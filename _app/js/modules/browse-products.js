@@ -1,4 +1,4 @@
-import {getProducts} from '../util/get-from-db.js'
+import {getProducts} from '../util/get-from-db.js';
 
 const productList = await getProducts();
 
@@ -57,26 +57,28 @@ export function browseProducts() {
 	}
 
 	function handleFilterCheckboxChange(event) {
-		const isChecked = checkIfChecked(event)
+		const isChecked = checkIfChecked(event);
 		updateProductListFilter(event, isChecked);
 	}
 
 	function handleTableHeadRowClick(event) {
-		//console.log(event.currentTarget.cellIndex)
 		const tableBody = getTableBody();
 		const rows = getTableRows(tableBody);
 		sortProductList(event, rows, tableBody);
 	}
 
+	//returns product list table for sorting
 	function getTableBody() {
 		return document.querySelector('.product-list__product-list-container');
 	}
 
+	//returns the rows from input table
 	function getTableRows(tableBody) {
 		const rows = Array.from(tableBody.rows);
 		return rows;
 	}
 
+	//Sorts product table on category click
 	function sortProductList(event, rows, tableBody) {
 		const cellIndex = event.currentTarget.cellIndex;
 		rows.sort((tr1, tr2) => {
@@ -87,10 +89,12 @@ export function browseProducts() {
 		tableBody.append(...rows);
 	}
 
+	//Returns the status of clicked checkbox
 	function checkIfChecked(event) {
 		return event.currentTarget.checked;
 	}
 
+	//Shows only the products selected in filter
 	function updateProductListFilter(event, isChecked) {
 		const clickedBox = event.currentTarget.name;
 		const clickedSpec = event.currentTarget.id;
@@ -103,26 +107,31 @@ export function browseProducts() {
 
 	}
 
+	//Returns element which displays max price
 	function getMaxPriceOutputElement() {
-		return document.querySelector('.max-price-container__price')
+		return document.querySelector('.max-price-container__price');
 	}
 
+	//updates max price element and Returns a new maxprice from input slider
 	function updateMaxpriceOutput(event, element) {
 		const newMaxPrice = event.currentTarget.value;
 		element.innerText = newMaxPrice;
-		return newMaxPrice
+		return newMaxPrice;
 	}
 
+	//returns element which displays min price
 	function getMinPriceOutputElement() {
 		return document.querySelector('.min-price-container__price')
 	}
 
+	//updates min price element and returns a new min price from input slider.
 	function updateMinPriceOutput(event, element) {
 		const newMinPrice = event.currentTarget.value;
 		element.innerText = newMinPrice;
-		return newMinPrice
+		return newMinPrice;
 	}
 
+	//render products based on selected price range
 	function updateProductList(price, range) {
 		const newPrice = price;
 		let filteredArray = null;
@@ -135,9 +144,9 @@ export function browseProducts() {
 		}
 	}
 
-	//function to create a new array with category matching clicked category
+	//function to create a new array with category matching clicked category, returns the new array
 	function sortProducts(clicked) {
-		const clickedCategory = clicked
+		const clickedCategory = clicked;
 		const sortedProduct = productList.filter(product => product.category.toLowerCase() === clickedCategory);
 		return sortedProduct;
 	}
@@ -157,6 +166,7 @@ export function browseProducts() {
 	}
 
 	//function to create DOM elements for price filter section based on object from database
+	// returns the container with all the html elements
 	function createPriceRangeDOM(products) {
 		//Create Elements
 		const priceRangeContainer = document.createElement('div');
@@ -275,6 +285,7 @@ export function browseProducts() {
 	}
 	
 	//function to get the needed keys from object
+	//returns an array with the keys
 	function getClickedCategoryObjectKeys(products) {
 		let newArray = [];
 	
@@ -303,12 +314,14 @@ export function browseProducts() {
 	}
 	
 	//function to get the lowest price in array of objects
+	//Returns the price
 	function getLowestPrice(products) {
 		const getLowest = Math.min(...products.map(item => item.price));
 		return getLowest/100;
 	}
 	
 	//function to get the higest price in array of objects
+	//Returns the price
 	function getHighestPrice(products) {
 		const getHighest = Math.max(...products.map(item => item.price));
 		return getHighest/100;
@@ -328,6 +341,7 @@ export function browseProducts() {
 	}
 	
 	//function which returns DOM ELement with elements and values from products
+	//Returns the DOM element containing all the info elements
 	function createProductListDOM(productArray, baseArray, productKeys) {
 	
 		const productList = productArray;
@@ -338,7 +352,6 @@ export function browseProducts() {
 		for(let index = 0; index < productList.length; index++) {
 			const productObject = productList[index];
 			const productListItem = document.createElement('tr');
-			// const productCard = document.createElement('td');
 			const productName = document.createElement('td');
 			const productImageContainer = document.createElement('td')
 			const productImage = document.createElement('img');
@@ -403,11 +416,12 @@ export function browseProducts() {
 	}
 	
 	//Function which creates creates head DOM elements for products table
+	//Returns a thead tag with tr and th elements
 	function createSorterDivDOM(productKeys) {
 		const sorterDiv = document.createElement('thead');
 		const tableTr = document.createElement('tr');
 
-		let thList = []
+		let thList = [];
 	
 		const nameButton = document.createElement('th');
 		const priceButton = document.createElement('th');
@@ -466,7 +480,7 @@ export function browseProducts() {
 		
 	}
 	
-	//returns the componenet that was clicked on builder page
+	//returns the component that was clicked on builder page
 	function getClickedCategoryFromLocalStorage() {
 		if(localStorage.getItem('clickedComponent')) {
 			return localStorage.getItem('clickedComponent');
@@ -476,6 +490,7 @@ export function browseProducts() {
 	}
 	
 	//Checks if the clicked product has already been added to builder localstorage
+	//returns true if item already in list
 	function checkCategoryAlreadyInList(savedList, currentProduct) {
 		if (savedList){
 			let checkIfItemExist = savedList.some(item =>{

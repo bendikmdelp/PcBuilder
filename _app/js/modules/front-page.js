@@ -6,41 +6,48 @@ const buildsList = await getCompletedBuilds();
 
 export default function frontPage() {
 
+	//Queryselectors
 	const mostPopularProductsList = document.querySelector('.popular-products__list');
 	const completedBuildsContainer = document.querySelector('.main-container__completed-builds');
 
+	//run function on page load
 	if(mostPopularProductsList && completedBuildsContainer) {
 		onPageLoad();
 	}
 
 
-
+	//Function to run on page load 
 	function onPageLoad() {
 		populateMostPopularProducts();
 		populateCompletedBuilds();
 	}
 
+	//runs render for products
 	function populateMostPopularProducts() {
 		renderHTML('products');
 	}
 
+	//Runs render for builds
 	function populateCompletedBuilds() {
 		renderHTML('builds');
 	}
 
+	//gets 10 random product names and returns them
 	function getRandomProductNames() {
 		const products = productList;
-		const randomIndex = getRandomIndexes(products)
+		const randomIndex = getRandomIndexes(products);
 		const productNames = getProductNames(randomIndex, products);
 		return productNames;
 	}
 
+	//creates and array with 10 random numbers, returns the array
 	function getRandomIndexes(products) {
-		let array = []
+		let array = [];
 		generateTenRandomNubers(products, array, 0);
 		return array;
 	}
 
+	//generates 10 random unique numbers
 	function generateTenRandomNubers(products, array, index) {
 		if(array.length < 10) {
 			for(index; array.length < 10; index++) {
@@ -55,12 +62,14 @@ export default function frontPage() {
 
 	}
 
+	//returns a random number between 0 and array length
 	function getRandomNumber(products) {
 		return Math.floor(Math.random() * ((products.length-1) - 0 +1) + 0);
 	}
 
+	//Returns the product name corelating to the numbers in the random number array.
 	function getProductNames(index, products) {
-		let productNames = []
+		let productNames = [];
 		for(const item of index) {
 			productNames.push(products[item].name);
 		}
@@ -68,6 +77,7 @@ export default function frontPage() {
 		return productNames;
 	}
 
+	//render product names on frontpage
 	function renderMostPopularProducts(randomProductNames) {
 		const products = randomProductNames;
 		for(const [index, product] of products.entries()) {
@@ -78,13 +88,7 @@ export default function frontPage() {
 		}
 	}
 
-	// function getRandomCompletedBuilds() {
-	// 	const builds = buildsList;
-	// 	const randomIndex = getRandomIndexes(builds)
-	// 	const productNames = getBuildInfo(randomIndex, builds);
-	// 	return productNames;
-	// }
-
+	//render builds on frontpage
 	function renderCompletedBuilds(builds) {
 		const buildList = builds;
 		for(const build of buildList) {
@@ -93,12 +97,13 @@ export default function frontPage() {
 		}
 	}
 
+	//If products gets 10 random products and render those products
+	//if builds renderes builds for database
 	function renderHTML(defined) {
 		if(defined === 'products') {
 			const randomProductNames = getRandomProductNames();
 			renderMostPopularProducts(randomProductNames);
 		}else if (defined === 'builds') {
-			//const randomCompletedBuilds = getRandomCompletedBuilds();
 			renderCompletedBuilds(buildsList);
 		}
 	}

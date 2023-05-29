@@ -8,15 +8,15 @@
 
 .category-select__component{
 	height: 20vH;
-	font-size: 2vH;
+	font-size: 1.2vH;
 	width: fit-content;
 	justify-items: center;
 	text-align: center;
 }
 
 .category-select__component-image {
-	height: 14vH;
-	width: 14vH;
+	height: 10vH;
+	width: 10vH;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -70,7 +70,7 @@ input[type=range] {
 
  @media screen and (max-width: 426px) {
 	.main-container__category-select {
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
 	}
 
 	.product-container__product-sorter {
@@ -79,6 +79,6 @@ input[type=range] {
 
 	.product-container__product-list {
 		width: 100vw;
-		font-size: 2vh;
+		font-size: 1.3vh;
 	}
  }

@@ -1,5 +1,6 @@
 import {sanity} from "../sanity.js"
 
+//Fetches products from sanity and returns an array of product objects
 export async function getProducts() {
 	const query = `*[_type == "product"] {
 			name,
@@ -31,13 +32,14 @@ export async function getProducts() {
 			caseType,
 			sidePanel,
 			colour
-		 }`
+		 }`;
 
 	const products = await getFromDbTryCatch(query);
 
-	return products
+	return products;
 }
 
+//Fetches completed builds from sanity and returns an array of build objects
 export async function getCompletedBuilds() {
 	const query = `*[_type == "completedBuild"] {
 		name,
@@ -49,6 +51,7 @@ export async function getCompletedBuilds() {
 	return builds;
 }
 
+//Runs try/catch and returns sanity data. Prints error on a html div
 async function getFromDbTryCatch(query) {
 	try {
 		const data = await sanity.fetch(query)
