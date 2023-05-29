@@ -1,4 +1,4 @@
-import {getProducts} from '../util/get-from-db.js'
+import {getProducts} from '../util/get-from-db.js';
 
 const productList = await getProducts();
 
@@ -57,12 +57,11 @@ export function browseProducts() {
 	}
 
 	function handleFilterCheckboxChange(event) {
-		const isChecked = checkIfChecked(event)
+		const isChecked = checkIfChecked(event);
 		updateProductListFilter(event, isChecked);
 	}
 
 	function handleTableHeadRowClick(event) {
-		//console.log(event.currentTarget.cellIndex)
 		const tableBody = getTableBody();
 		const rows = getTableRows(tableBody);
 		sortProductList(event, rows, tableBody);
@@ -110,14 +109,14 @@ export function browseProducts() {
 
 	//Returns element which displays max price
 	function getMaxPriceOutputElement() {
-		return document.querySelector('.max-price-container__price')
+		return document.querySelector('.max-price-container__price');
 	}
 
 	//updates max price element and Returns a new maxprice from input slider
 	function updateMaxpriceOutput(event, element) {
 		const newMaxPrice = event.currentTarget.value;
 		element.innerText = newMaxPrice;
-		return newMaxPrice
+		return newMaxPrice;
 	}
 
 	//returns element which displays min price
@@ -129,7 +128,7 @@ export function browseProducts() {
 	function updateMinPriceOutput(event, element) {
 		const newMinPrice = event.currentTarget.value;
 		element.innerText = newMinPrice;
-		return newMinPrice
+		return newMinPrice;
 	}
 
 	//render products based on selected price range
@@ -147,7 +146,7 @@ export function browseProducts() {
 
 	//function to create a new array with category matching clicked category, returns the new array
 	function sortProducts(clicked) {
-		const clickedCategory = clicked
+		const clickedCategory = clicked;
 		const sortedProduct = productList.filter(product => product.category.toLowerCase() === clickedCategory);
 		return sortedProduct;
 	}
@@ -353,7 +352,6 @@ export function browseProducts() {
 		for(let index = 0; index < productList.length; index++) {
 			const productObject = productList[index];
 			const productListItem = document.createElement('tr');
-			// const productCard = document.createElement('td');
 			const productName = document.createElement('td');
 			const productImageContainer = document.createElement('td')
 			const productImage = document.createElement('img');
@@ -423,7 +421,7 @@ export function browseProducts() {
 		const sorterDiv = document.createElement('thead');
 		const tableTr = document.createElement('tr');
 
-		let thList = []
+		let thList = [];
 	
 		const nameButton = document.createElement('th');
 		const priceButton = document.createElement('th');

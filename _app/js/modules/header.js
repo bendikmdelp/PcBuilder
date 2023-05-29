@@ -5,13 +5,13 @@ export default function header() {
 	mobileNavigationButton.addEventListener('click', handleMobileNavigationButtonClick);
 
 	function handleMobileNavigationButtonClick() {
-		displayMobileNavigationButtonContainer()
+		displayMobileNavigationButtonContainer();
 	}
 
 	function displayMobileNavigationButtonContainer() {
 		const elementStyle = getComputedStyle(mobileNavigationButtonContainer);
 		if(elementStyle.display === 'flex') {
-			mobileNavigationButtonContainer.style.display = 'none'
+			mobileNavigationButtonContainer.style.display = 'none';
 		} else {
 			mobileNavigationButtonContainer.style.display = 'flex';
 		}

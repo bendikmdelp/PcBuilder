@@ -35,14 +35,14 @@ export default function frontPage() {
 	//gets 10 random product names and returns them
 	function getRandomProductNames() {
 		const products = productList;
-		const randomIndex = getRandomIndexes(products)
+		const randomIndex = getRandomIndexes(products);
 		const productNames = getProductNames(randomIndex, products);
 		return productNames;
 	}
 
 	//creates and array with 10 random numbers, returns the array
 	function getRandomIndexes(products) {
-		let array = []
+		let array = [];
 		generateTenRandomNubers(products, array, 0);
 		return array;
 	}
@@ -69,7 +69,7 @@ export default function frontPage() {
 
 	//Returns the product name corelating to the numbers in the random number array.
 	function getProductNames(index, products) {
-		let productNames = []
+		let productNames = [];
 		for(const item of index) {
 			productNames.push(products[item].name);
 		}

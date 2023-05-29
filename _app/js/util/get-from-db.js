@@ -32,11 +32,11 @@ export async function getProducts() {
 			caseType,
 			sidePanel,
 			colour
-		 }`
+		 }`;
 
 	const products = await getFromDbTryCatch(query);
 
-	return products
+	return products;
 }
 
 //Fetches completed builds from sanity and returns an array of build objects

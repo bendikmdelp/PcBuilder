@@ -30,7 +30,7 @@ export default function navigateToPage() {
 
 	//Redirects the user to home
 	function redirectToHome() {
-		window.location.href = "/"
+		window.location.href = "/";
 	}
 
 	//redirect the user to clicked page
@@ -39,13 +39,13 @@ export default function navigateToPage() {
 
 		switch (clickedLink) {
 			case "builder":
-				window.location.href = "/_app/builder"
+				window.location.href = "/_app/builder";
 				break;
 			case "browse":
-				window.location.href = "/_app/browse-products"
+				window.location.href = "/_app/browse-products";
 				break;
 			case "completed":
-				window.location.href = "/_app/completed-builds"
+				window.location.href = "/_app/completed-builds";
 				break;
 		
 			default:
