@@ -1,7 +1,7 @@
 import { createBuildFigureDOM } from "../util/create-html-dom.js";
 import { getCompletedBuilds } from "../util/get-from-db.js";
 
-const builds = getCompletedBuilds;
+const builds = await getCompletedBuilds();
 
 export default function completedBuilds() {
 	const completedBuildsContainer = document.querySelector('.completed-builds__builds-container');	
@@ -13,10 +13,10 @@ export default function completedBuilds() {
 	}
 
 	function renderCompletedBuildList() {
-		builds.forEach(build => {
+		for(const build of builds) {
 			const buildCard = createBuildFigureDOM(build);
 			completedBuildsContainer.appendChild(buildCard);
-		})
+		}
 	}
 
 	function renderHTML() {

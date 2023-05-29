@@ -5,7 +5,6 @@ const productList = await getProducts();
 const buildsList = await getCompletedBuilds();
 
 export default function frontPage() {
-	console.log(buildsList)
 
 	const mostPopularProductsList = document.querySelector('.popular-products__list');
 	const completedBuildsContainer = document.querySelector('.main-container__completed-builds');
