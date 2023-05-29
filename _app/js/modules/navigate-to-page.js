@@ -41,7 +41,7 @@ export default function navigateToPage() {
 				window.location.href = "/_app/browse-products"
 				break;
 			case "completed":
-				
+				window.location.href = "/_app/completed-builds"
 				break;
 		
 			default:

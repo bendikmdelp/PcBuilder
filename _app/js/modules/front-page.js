@@ -1,4 +1,5 @@
 import { getCompletedBuilds, getProducts } from "../util/get-from-db.js";
+import { createBuildFigureDOM } from "../util/create-html-dom.js";
 
 const productList = await getProducts();
 const buildsList = await getCompletedBuilds();
@@ -87,30 +88,11 @@ export default function frontPage() {
 
 	function renderCompletedBuilds(builds) {
 		const buildList = builds;
-		console.log(buildList)
 		for(const build of buildList) {
 			const buildFigure = createBuildFigureDOM(build);
 			completedBuildsContainer.append(buildFigure);
 		}
 	}
-
-	function createBuildFigureDOM(build) {
-		const figureElement = document.createElement('figure');
-		const imageElement = document.createElement('img');
-		const figCaptionElement = document.createElement('figcaption');
-
-		imageElement.src = build.images[0];
-		figCaptionElement.innerText = build.name;
-
-		figureElement.append(
-			imageElement,
-			figCaptionElement
-		);
-
-		return figureElement;
-	}
-
-
 
 	function renderHTML(defined) {
 		if(defined === 'products') {
