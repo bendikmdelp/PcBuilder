@@ -52,9 +52,14 @@ export async function getCompletedBuilds() {
 async function getFromDbTryCatch(query) {
 	try {
 		const data = await sanity.fetch(query)
-		return data
+		return data;
 	} catch (Error) {
-		console.log(Error.message);
-		alert(Error.message)
+		const errorDiv = document.querySelectorAll('.display-error-message');
+		errorDiv.forEach(element => {
+			element.innerText = Error.message;
+			element.style.display = 'block';
+		})
+		
+
 	}
 }
