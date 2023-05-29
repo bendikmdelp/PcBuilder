@@ -54,6 +54,7 @@ async function getFromDbTryCatch(query) {
 		const data = await sanity.fetch(query)
 		return data
 	} catch (Error) {
-		console.log(Error);
+		console.log(Error.message);
+		alert(Error.message)
 	}
 }
