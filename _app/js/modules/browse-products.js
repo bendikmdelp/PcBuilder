@@ -369,6 +369,7 @@ export function browseProducts() {
 	
 			productName.innerText = baseArray[index].name;
 			productImage.src = baseArray[index].images[0];
+			productImage.alt = '';
 			productPrice.innerText = baseArray[index].price/100;
 			productAddButton.innerText = 'ADD';
 	
