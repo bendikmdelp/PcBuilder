@@ -4,6 +4,7 @@ export function createBuildFigureDOM(build) {
 	const figCaptionElement = document.createElement('figcaption');
 
 	imageElement.src = build.images[0];
+	imageElement.alt = ''
 	figCaptionElement.innerText = build.name;
 
 	figureElement.append(
