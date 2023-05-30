@@ -167,5 +167,21 @@ export default {
 			name: 'colour',
 			type: 'string',
 		}
-	]
+	],
+
+	preview: {
+		select: {
+			name: 'name',
+			brand: 'manufacturer.name',
+			category: 'category.name',
+			image: 'images.0.asset'
+		},
+		prepare: (fields) => {
+			return {
+				title: fields.name,
+				subtitle: `[${fields.brand}, ${fields.category}]`,
+				media: fields.image
+			}
+		}
+	}
 }
