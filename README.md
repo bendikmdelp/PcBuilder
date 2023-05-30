@@ -14,3 +14,8 @@ The application has the following features:
 - Sanity
 
 See live demo here: https://pc-build-helper.netlify.app/
+
+## To run project
+- cd _studio
+- npm run dev
+- start liveserver
