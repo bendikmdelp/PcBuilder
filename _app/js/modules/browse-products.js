@@ -390,7 +390,7 @@ export function browseProducts() {
 	
 	//Function which rededirects to builder page
 	function navigateToBuilder() {
-		window.location.href = "/_app/builder";
+		window.location.href = "/builder";
 	}
 	
 	//Function which adds products to localstorage to be displayed on builder page
