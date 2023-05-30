@@ -52,7 +52,7 @@ export default async function builder() {
 
 	//redirect to browse products page
 	function navigateToBrowseProductsPage() {
-		window.location.href = "/_app/browse-products";
+		window.location.href = "/browse-products";
 	}
 
 	//Returns products added to localstorage

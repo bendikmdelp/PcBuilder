@@ -39,13 +39,13 @@ export default function navigateToPage() {
 
 		switch (clickedLink) {
 			case "builder":
-				window.location.href = "/_app/builder";
+				window.location.href = "/builder";
 				break;
 			case "browse":
-				window.location.href = "/_app/browse-products";
+				window.location.href = "/browse-products";
 				break;
 			case "completed":
-				window.location.href = "/_app/completed-builds";
+				window.location.href = "/completed-builds";
 				break;
 		
 			default:
